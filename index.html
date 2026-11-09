@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BNCP003 · Relatório Final da Captação</title>
+<meta name="description" content="Relatório final da captação do lançamento BNCC Computação na Prática (NOV26), Voa Conhecimento. Gestão de tráfego: Brito Mídias.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --roxo:#7C3AED;--roxo-dark:#5B21B6;--roxo-deep:#3B0F73;--roxo-light:#A78BFA;--roxo-xlight:#EDE9FE;
+  --preto:#0A0A0A;--ink:#141018;--cinza:#5B5566;--muted:#8A8496;--linha:#E7E3EE;--bg:#FFFFFF;--bg-soft:#FAF9FC;
+  --verde:#15803D;--verde-bg:#DCFCE7;--ambar:#B45309;--ambar-bg:#FEF3C7;--verm:#B91C1C;--verm-bg:#FEE2E2;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;font-family:Poppins,sans-serif;font-weight:300;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--roxo-dark)}
+b,strong{font-weight:600}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+/* HERO */
+.hero{position:relative;overflow:hidden;color:#fff;padding:34px 0 64px;
+  background:radial-gradient(1100px 500px at 78% -10%,rgba(124,58,237,.55),transparent 60%),linear-gradient(150deg,#0A0A0A 0%,#17111F 45%,#3B0F73 100%)}
+.hero::before{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px);
+  background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 70% 20%,#000 0%,transparent 70%);mask-image:radial-gradient(ellipse at 70% 20%,#000 0%,transparent 70%);opacity:.5}
+.hero .wrap{position:relative}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:56px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:42px;height:42px}
+.brand .word{display:flex;align-items:center;gap:12px;font-weight:300}
+.brand .word b{font-weight:800;font-size:19px}
+.brand .word .bar{width:2px;height:28px;background:rgba(255,255,255,.55)}
+.brand .word span{font-size:19px;letter-spacing:.22em}
+.pill{display:inline-block;border:1px solid var(--roxo-light);color:var(--roxo-light);border-radius:100px;padding:7px 15px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.pill.solid{background:linear-gradient(90deg,#7C3AED,#5B21B6);color:#fff;border-color:transparent}
+.hero h1{font-size:clamp(32px,5.4vw,56px);font-weight:800;letter-spacing:-.02em;line-height:1.08;margin:18px 0 14px}
+.hero h1 em{font-style:normal;color:var(--roxo-light)}
+.hero p.lead{font-size:17px;max-width:720px;color:rgba(255,255,255,.82);margin:0}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:30px;font-size:13px;color:rgba(255,255,255,.7)}
+.hero-meta b{display:block;color:#fff;font-size:15px;font-weight:600}
+/* NAV */
+nav.sec{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha)}
+nav.sec .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.sec a{white-space:nowrap;text-decoration:none;color:var(--cinza);font-size:13px;font-weight:500;padding:14px 12px;border-bottom:2px solid transparent}
+nav.sec a:hover{color:var(--roxo)}
+nav.sec a.on{color:var(--roxo);border-bottom-color:var(--roxo)}
+/* SECTIONS */
+section{padding:64px 0}
+section.soft{background:var(--bg-soft);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.section-label{display:flex;align-items:center;gap:12px;font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--roxo)}
+.section-label::before{content:"";width:34px;height:2px;background:var(--roxo);border-radius:2px}
+h2{font-size:clamp(24px,3.2vw,32px);font-weight:700;letter-spacing:-.01em;margin:10px 0 8px;line-height:1.2}
+h3{font-size:18px;font-weight:600;margin:0 0 6px}
+p.intro{color:var(--cinza);max-width:760px;margin:0 0 30px}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{border:1px solid var(--linha);border-radius:16px;padding:20px;background:#fff}
+.kpi.hl{background:linear-gradient(135deg,#5B21B6 0%,#7C3AED 100%);color:#fff;border-color:transparent}
+.kpi small{display:block;color:var(--roxo);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.kpi.hl small{color:#E9DDFF}
+.kpi .v{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:8px 0 4px}
+.kpi .s{font-size:13px;color:var(--cinza)}
+.kpi.hl .s{color:rgba(255,255,255,.85)}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:100px;letter-spacing:.02em}
+.tag.ok{background:var(--verde-bg);color:var(--verde)}
+.tag.warn{background:var(--ambar-bg);color:var(--ambar)}
+.tag.bad{background:var(--verm-bg);color:var(--verm)}
+.tag.neu{background:var(--roxo-xlight);color:var(--roxo-dark)}
+.kpi.hl .tag.ok{background:rgba(255,255,255,.18);color:#fff}
+.goal{margin-top:12px;height:8px;border-radius:8px;background:rgba(255,255,255,.22);overflow:hidden}
+.goal i{display:block;height:100%;background:#fff;border-radius:8px}
+/* BUDGET */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{border:1px solid var(--linha);border-radius:16px;padding:22px;background:#fff}
+.rowline{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--linha);font-size:14px}
+.rowline:last-child{border-bottom:0}
+.rowline span{color:var(--cinza)}
+.rowline b{font-weight:600;text-align:right}
+.stack{display:flex;height:14px;border-radius:8px;overflow:hidden;gap:2px;margin:14px 0 8px;background:#fff}
+.stack i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--cinza)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+/* FUNNEL */
+.funnel{display:flex;flex-direction:column;gap:8px}
+.fstep{display:grid;grid-template-columns:220px 1fr 150px;align-items:center;gap:16px}
+.fstep .lbl{font-size:14px;font-weight:500}
+.fstep .lbl small{display:block;color:var(--muted);font-weight:300;font-size:12px}
+.fbar{height:44px;border-radius:10px;background:var(--roxo-xlight);position:relative;overflow:hidden}
+.fbar i{position:absolute;left:0;top:0;bottom:0;border-radius:10px;background:linear-gradient(90deg,#7C3AED,#5B21B6)}
+.fbar b{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:700;font-size:16px;color:#fff;mix-blend-mode:normal;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.fbar.dark b{color:var(--ink);text-shadow:none}
+.fconv{font-size:13px;color:var(--cinza);text-align:right}
+.fconv b{display:block;color:var(--roxo-dark);font-size:17px;font-weight:700}
+.mgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:28px}
+.mini{border:1px solid var(--linha);border-radius:14px;padding:14px 16px;background:var(--bg-soft)}
+section.soft .mini{background:#fff}
+.mini small{display:block;color:var(--roxo);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.mini b{display:block;font-size:20px;font-weight:700;margin-top:4px}
+.mini span{font-size:11.5px;color:var(--muted);line-height:1.35;display:block;margin-top:2px}
+.note{font-size:13px;color:var(--cinza);background:var(--roxo-xlight);border-left:3px solid var(--roxo);border-radius:8px;padding:12px 16px;margin-top:22px}
+/* CHARTS */
+.chartbox{border:1px solid var(--linha);border-radius:16px;padding:20px;background:#fff}
+.chartbox h3{font-size:15px}
+.chartbox p{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.chartbox .cv{position:relative;height:260px}
+/* TABLES */
+.tbl-wrap{border:1px solid var(--linha);border-radius:16px;overflow:auto;background:#fff;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{position:sticky;top:0;background:var(--bg-soft);text-align:right;font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cinza);padding:12px 12px;border-bottom:1px solid var(--linha);white-space:nowrap;cursor:pointer;user-select:none}
+th:first-child,td:first-child{text-align:left}
+th.l,td.l{text-align:left}
+th:hover{color:var(--roxo)}
+th.sorted{color:var(--roxo)}
+td{padding:11px 12px;border-bottom:1px solid var(--linha);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#FBFAFE}
+tfoot td{font-weight:600;background:var(--bg-soft);border-top:1px solid var(--linha)}
+td.name{white-space:normal;min-width:260px;max-width:420px;font-weight:500}
+td.name small{display:block;font-weight:300;color:var(--muted);font-size:11.5px}
+.code{display:inline-block;font-weight:700;color:var(--roxo-dark);background:var(--roxo-xlight);border-radius:6px;padding:1px 7px;font-size:12px;margin-right:6px}
+.lnk{display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-weight:500;font-size:12px;color:var(--roxo-dark);border:1px solid var(--roxo-light);border-radius:100px;padding:3px 10px}
+.lnk:hover{background:var(--roxo-xlight)}
+.cplbar{display:inline-block;height:6px;border-radius:4px;background:var(--roxo-light);vertical-align:middle;margin-right:8px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.chip{border:1px solid var(--linha);background:#fff;color:var(--cinza);border-radius:100px;padding:6px 14px;font:500 12.5px Poppins,sans-serif;cursor:pointer}
+.chip.on{background:linear-gradient(90deg,#7C3AED,#5B21B6);color:#fff;border-color:transparent}
+.search{margin-left:auto;border:1px solid var(--linha);border-radius:10px;padding:8px 12px;font:300 13px Poppins,sans-serif;min-width:220px}
+.search:focus{outline:2px solid var(--roxo-light);border-color:transparent}
+.count{font-size:12.5px;color:var(--muted);margin:10px 2px 0}
+/* AUDIENCE */
+.aud{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.aud .card h3{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.aud dl{margin:12px 0 0;display:grid;grid-template-columns:120px 1fr;gap:8px 14px;font-size:13px}
+.aud dt{color:var(--roxo);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+.aud dd{margin:0;color:var(--ink)}
+.aud .res{margin-top:14px;padding-top:12px;border-top:1px solid var(--linha);display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--cinza)}
+.aud .res b{color:var(--ink);font-size:15px;display:block}
+details.excl{margin-top:22px}
+details.excl summary{cursor:pointer;font-weight:600;color:var(--roxo-dark);font-size:14px}
+details.excl ul{columns:2;font-size:13px;color:var(--cinza);margin:12px 0 0;padding-left:18px}
+/* INSIGHTS */
+.ins{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ins .card .n{font-size:12px;font-weight:700;color:var(--roxo);letter-spacing:.12em}
+.ins .card p{font-size:13.5px;color:var(--cinza);margin:6px 0 0}
+.tests{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.vs{display:flex;gap:10px;margin-top:12px}
+.vs div{flex:1;border:1px solid var(--linha);border-radius:12px;padding:12px;text-align:center;background:var(--bg-soft)}
+.vs div.win{border-color:var(--roxo);background:var(--roxo-xlight)}
+.vs small{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--roxo);text-transform:uppercase}
+.vs b{display:block;font-size:20px;font-weight:700}
+.vs span{font-size:11.5px;color:var(--muted)}
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:40px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:960px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .mgrid{grid-template-columns:repeat(3,1fr)}
+  .ins{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  .wrap{padding:0 16px}
+  section{padding:46px 0}
+  .grid2,.aud,.tests,.ins{grid-template-columns:1fr}
+  .fstep{grid-template-columns:1fr;gap:6px}
+  .fconv{text-align:left}
+  .mgrid{grid-template-columns:repeat(2,1fr)}
+  .kpi .v{font-size:25px}
+  .search{margin-left:0;width:100%}
+  details.excl ul{columns:1}
+  .aud dl{grid-template-columns:1fr;gap:2px 0}
+  .aud dd{margin-bottom:8px}
+}
+@media print{nav.sec{display:none}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+          <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon><polygon points="50,33 65,59 35,59"></polygon>
+          <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line><line x1="10" y1="73" x2="35" y2="59"></line>
+          <line x1="90" y1="27" x2="50" y2="33"></line><line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+          <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line><line x1="10" y1="27" x2="50" y2="33"></line>
+        </svg>
+        <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+      </div>
+      <span class="pill">Relatório final · Captação encerrada</span>
+    </div>
+    <span class="pill solid">Voa Conhecimento · BNCP003</span>
+    <h1>BNCC Computação na Prática <em>NOV26</em></h1>
+    <p class="lead">Resultado completo da captação paga no Meta Ads: investimento, cadastros, funil, campanhas, públicos, anúncios e criativos.</p>
+    <div class="hero-meta">
+      <div>Período da captação<b>09/10 a 08/11/2026</b></div>
+      <div>Aulas ao vivo<b>09 a 13/11, às 19h</b></div>
+      <div>Conta de anúncios<b>BNCC 03 (CA02)</b></div>
+      <div>Dados extraídos em<b>09/11/2026</b></div>
+    </div>
+  </div>
+</header>
+
+<nav class="sec" aria-label="Seções do relatório">
+  <div class="wrap">
+    <a href="#resumo">Resumo</a><a href="#orcamento">Orçamento</a><a href="#funil">Funil</a><a href="#diario">Dia a dia</a>
+    <a href="#campanhas">Campanhas</a><a href="#publicos">Públicos</a><a href="#anuncios">Anúncios</a><a href="#criativos">Criativos</a><a href="#aprendizados">Aprendizados</a>
+  </div>
+</nav>
+
+<!-- RESUMO -->
+<section id="resumo">
+  <div class="wrap">
+    <div class="section-label">Visão consolidada</div>
+    <h2>Meta batida com 40% de folga e custo 29% abaixo do planejado</h2>
+    <p class="intro">A captação fechou dentro da verba planejada e trouxe <b id="t-mc-extra"></b> cadastros a mais do que a meta. Os cadastros reais são os contatos que entraram na lista do Mailchimp (audiência do evento). Os leads Meta são os cadastros que o pixel conseguiu atribuir aos anúncios.</p>
+    <div class="kpis">
+      <div class="kpi hl">
+        <small>Cadastros reais (Mailchimp)</small>
+        <div class="v" id="k-mc"></div>
+        <div class="s">Meta: <b id="k-meta"></b> · <span class="tag ok" id="k-pct"></span></div>
+        <div class="goal"><i id="k-goal"></i></div>
+      </div>
+      <div class="kpi">
+        <small>Investimento na captação</small>
+        <div class="v" id="k-spend"></div>
+        <div class="s">Verba: <b id="k-verba"></b><br>Com imposto (13,83%): <b id="k-spend-tax"></b></div>
+      </div>
+      <div class="kpi">
+        <small>Custo por cadastro real</small>
+        <div class="v" id="k-cpl"></div>
+        <div class="s">Planejado: <b>R$ 2,10</b> · <span class="tag ok" id="k-cpl-tag"></span><br>Com imposto: <b id="k-cpl-tax"></b></div>
+      </div>
+      <div class="kpi">
+        <small>Leads atribuídos pela Meta</small>
+        <div class="v" id="k-lead"></div>
+        <div class="s">Custo por lead (Meta): <b id="k-cplm"></b><br>Ativos na lista: <b id="k-sub"></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORÇAMENTO -->
+<section id="orcamento" class="soft">
+  <div class="wrap">
+    <div class="section-label">Orçamento</div>
+    <h2>Como os R$ 50 mil foram distribuídos</h2>
+    <p class="intro">O orçamento total do lançamento já considera o imposto de 13,83% cobrado sobre o valor investido nos anúncios. A captação usou 99,9% da sua verba.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Planejado</h3>
+        <div class="stack" aria-hidden="true"><i style="flex:43925;background:#7C3AED"></i><i style="flex:6075;background:#D9D3E3"></i></div>
+        <div class="legend"><span><i style="background:#7C3AED"></i>Verba Meta R$ 43.925</span><span><i style="background:#D9D3E3"></i>Imposto R$ 6.075</span></div>
+        <div style="margin-top:12px">
+          <div class="rowline"><span>Orçamento total do lançamento</span><b>R$ 50.000,00</b></div>
+          <div class="rowline"><span>Verba Meta (sem imposto)</span><b>R$ 43.925,15</b></div>
+          <div class="rowline"><span>Captação (94%)</span><b>R$ 41.289,64</b></div>
+          <div class="rowline"><span>Aquecimento / aulas (3%)</span><b>R$ 1.317,75</b></div>
+          <div class="rowline"><span>Lembrete (3%)</span><b>R$ 1.317,75</b></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Realizado na captação</h3>
+        <div class="stack" aria-hidden="true"><i id="b-used" style="background:#7C3AED"></i><i id="b-left" style="background:#D9D3E3"></i></div>
+        <div class="legend"><span><i style="background:#7C3AED"></i>Investido</span><span><i style="background:#D9D3E3"></i>Saldo</span></div>
+        <div style="margin-top:12px">
+          <div class="rowline"><span>Verba de captação</span><b>R$ 41.289,64</b></div>
+          <div class="rowline"><span>Investido (Meta)</span><b id="b-spend"></b></div>
+          <div class="rowline"><span>Saldo não utilizado</span><b id="b-saldo"></b></div>
+          <div class="rowline"><span>Investido com imposto</span><b id="b-tax"></b></div>
+          <div class="rowline"><span>Lembrete e aulas (em andamento)</span><b id="b-lemb"></b></div>
+        </div>
+      </div>
+    </div>
+    <p class="note">As fases seguintes seguem rodando: as campanhas de <b>lembrete</b> (contagem regressiva até a 1ª aula) e as campanhas das <b>aulas 02 a 05</b> (R$ 250/dia de 10 a 13/11). A projeção do lançamento completo é fechar em torno de R$ 43,6 mil de verba Meta (~R$ 49,6 mil com imposto), dentro dos R$ 50 mil.</p>
+  </div>
+</section>
+
+<!-- FUNIL -->
+<section id="funil">
+  <div class="wrap">
+    <div class="section-label">Funil completo</div>
+    <h2>Da impressão ao cadastro</h2>
+    <p class="intro">Soma das 6 campanhas de captação, de 09/10 a 08/11. Cada etapa mostra o volume e a taxa de passagem em relação à etapa anterior (barras em escala logarítmica, para caber todas as etapas).</p>
+    <div class="funnel" id="funnel"></div>
+    <div class="mgrid" id="metrics"></div>
+    <p class="note"><b>Por que o Mailchimp tem mais cadastros que a Meta?</b> A Meta só conta o lead que o pixel consegue ligar a um clique ou visualização de anúncio. Ficam de fora quem bloqueia rastreamento, quem chega por compartilhamento ou orgânico e parte dos cadastros anteriores a 28/10, quando corrigimos o disparo do evento de cadastro no site. Depois da correção, o pixel passou a registrar de 98% a 102% dos cadastros do Mailchimp.</p>
+  </div>
+</section>
+
+<!-- DIÁRIO -->
+<section id="diario" class="soft">
+  <div class="wrap">
+    <div class="section-label">Dia a dia</div>
+    <h2>Evolução da captação</h2>
+    <p class="intro">A verba seguiu o plano semanal: aceleração na 2ª semana, pico na 3ª (23/10 a 01/11) e redução gradual até o encerramento, mantendo só o remarketing nos últimos dias.</p>
+    <div class="grid2">
+      <div class="chartbox"><h3>Investimento por dia</h3><p>Valores sem imposto, em R$</p><div class="cv"><canvas id="c-spend" role="img" aria-label="Investimento diário em reais"></canvas></div></div>
+      <div class="chartbox"><h3>Cadastros reais por dia</h3><p>Novos contatos na lista do Mailchimp</p><div class="cv"><canvas id="c-mc" role="img" aria-label="Cadastros diários no Mailchimp"></canvas></div></div>
+    </div>
+    <div class="chartbox" style="margin-top:18px"><h3>Custo por cadastro real por dia</h3><p>Investimento do dia ÷ cadastros do Mailchimp no dia. Linha tracejada = meta de R$ 2,10</p><div class="cv"><canvas id="c-cpl" role="img" aria-label="Custo por cadastro diário"></canvas></div></div>
+    <details class="excl" style="margin-top:22px"><summary>Ver tabela dia a dia</summary>
+      <div class="tbl-wrap" style="margin-top:12px;max-height:460px"><table id="t-daily"></table></div>
+    </details>
+  </div>
+</section>
+
+<!-- CAMPANHAS -->
+<section id="campanhas">
+  <div class="wrap">
+    <div class="section-label">Resultado por campanha</div>
+    <h2>6 campanhas de captação</h2>
+    <p class="intro">Todas otimizadas para cadastro (evento Lead), com orçamento por conjunto (ABO). Clique no cabeçalho de qualquer coluna para ordenar.</p>
+    <div class="tbl-wrap"><table id="t-camp"></table></div>
+    <div class="grid2" style="margin-top:22px" id="camp-desc"></div>
+  </div>
+</section>
+
+<!-- PÚBLICOS -->
+<section id="publicos" class="soft">
+  <div class="wrap">
+    <div class="section-label">Públicos e conjuntos</div>
+    <h2>Quem recebeu os anúncios</h2>
+    <p class="intro">Foram 22 conjuntos de anúncios, organizados em 4 tipos de público. Abaixo, o que tem dentro de cada público, as especificações e o resultado consolidado. Depois, a tabela com cada conjunto.</p>
+    <div class="aud" id="aud"></div>
+    <details class="excl">
+      <summary>Exclusões aplicadas nos públicos frios (interesse e lookalike)</summary>
+      <ul>
+        <li>Quem já engajou com o Instagram @voaconhecimento nos últimos 365 dias (visitou, engajou, salvou, mandou mensagem)</li>
+        <li>Seguidores do @voaconhecimento</li>
+        <li>Compradores dos lançamentos BNCC016 (nov/25) e BNCC017 (jan/26)</li>
+        <li>Compradores dos últimos 24 meses e lista geral de compradores BNCC</li>
+        <li>Leads do lançamento anterior (BNCP002) e quem visitou a página dele</li>
+        <li>Quem assistiu 25% ou mais dos vídeos da captação BNCP002</li>
+        <li>No lookalike: quem já assistiu 25% dos vídeos BNCP003 (essa pessoa vai para o remarketing) e a faixa de lookalike anterior, para as faixas não se sobreporem</li>
+      </ul>
+      <p style="font-size:13px;color:var(--cinza);margin:10px 0 0">A ideia das exclusões: o público frio paga para encontrar <b>gente nova</b>. Quem já conhece a Voa é atendido pelo remarketing, que é mais barato.</p>
+    </details>
+    <h3 style="margin-top:34px">Resultado por conjunto</h3>
+    <div class="filters" id="f-adset"></div>
+    <div class="tbl-wrap"><table id="t-adset"></table></div>
+  </div>
+</section>
+
+<!-- ANÚNCIOS -->
+<section id="anuncios">
+  <div class="wrap">
+    <div class="section-label">Resultado por anúncio</div>
+    <h2>Todos os anúncios que receberam verba</h2>
+    <p class="intro">Cada linha é um anúncio dentro de um conjunto (o mesmo criativo aparece em mais de um conjunto). O botão <b>Abrir</b> leva direto ao anúncio no Gerenciador de Anúncios da conta BNCC 03 (precisa estar logado em um perfil com acesso à conta).</p>
+    <div class="filters" id="f-ad"></div>
+    <div class="tbl-wrap" style="max-height:680px"><table id="t-ad"></table></div>
+    <div class="count" id="ad-count"></div>
+  </div>
+</section>
+
+<!-- CRIATIVOS -->
+<section id="criativos" class="soft">
+  <div class="wrap">
+    <div class="section-label">Resultado por criativo</div>
+    <h2>Quais vídeos trouxeram os cadastros</h2>
+    <p class="intro">Aqui os anúncios são somados por criativo, juntando todas as campanhas em que o vídeo rodou. O botão <b>Drive</b> abre o arquivo original do vídeo.</p>
+    <div class="kpis" id="top-cr" style="margin-bottom:22px"></div>
+    <div class="filters" id="f-cr"></div>
+    <div class="tbl-wrap" style="max-height:680px"><table id="t-cr"></table></div>
+    <div class="count" id="cr-count"></div>
+  </div>
+</section>
+
+<!-- APRENDIZADOS -->
+<section id="aprendizados">
+  <div class="wrap">
+    <div class="section-label">Aprendizados</div>
+    <h2>O que funcionou e o que levar para o próximo lançamento</h2>
+    <p class="intro">Leitura da Brito Mídias sobre os dados acima.</p>
+    <div class="ins" id="ins"></div>
+    <div class="tests" id="tests"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" style="width:34px;height:34px">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon><polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line><line x1="10" y1="73" x2="35" y2="59"></line>
+        <line x1="90" y1="27" x2="50" y2="33"></line><line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line><line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word" style="color:#fff"><b style="font-size:16px">BM</b><i class="bar" style="height:22px"></i><span style="font-size:16px">MÍDIAS</span></span>
+    </div>
+    <div>Fontes: Meta Ads (conta BNCC 03) e lista do Mailchimp (audiência do evento, só contagens). Valores de investimento sem imposto, salvo indicação.<br>Brito Mídias · Central de Estratégia e Resultados · rafael@britomidias.com.br</div>
+  </div>
+</footer>
+
+<script>
+const D = {"ads": [{"id": "120253253485360222", "camp": "[06]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV49_BNCP003_CAP_COORDENADORA PEDINDO SALA BNCC COMPUTACAO_1.09", "spend": 2.41, "imp": 262, "clk": 1, "lpv": 0, "lead": 0, "thru": 19}, {"id": "120253253485270222", "camp": "[06]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV48_BNCP003_CAP_MEU DEUS COORDENADORA QUER BNCC COMPUTACAO 2_0.49", "spend": 979.38, "imp": 94336, "clk": 1808, "lpv": 1259, "lead": 320, "thru": 11324}, {"id": "120253253485150222", "camp": "[06]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV47_BNCP003_CAP_MEU DEUS COORDENADORA QUER BNCC COMPUTACAO_0.49", "spend": 4.87, "imp": 641, "clk": 4, "lpv": 3, "lead": 0, "thru": 49}, {"id": "120253253485040222", "camp": "[06]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV46_BNCP003_CAP_VOCE JA RECEBEU MENSAGEM DA COORDENADORA_0.48", "spend": 4.74, "imp": 609, "clk": 2, "lpv": 0, "lead": 0, "thru": 17}, {"id": "120253253484020222", "camp": "[06]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV49_BNCP003_CAP_COORDENADORA PEDINDO SALA BNCC COMPUTACAO_1.09", "spend": 2.72, "imp": 206, "clk": 3, "lpv": 1, "lead": 1, "thru": 14}, {"id": "120253253483980222", "camp": "[06]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV48_BNCP003_CAP_MEU DEUS COORDENADORA QUER BNCC COMPUTACAO 2_0.49", "spend": 780.03, "imp": 66677, "clk": 1259, "lpv": 942, "lead": 318, "thru": 8418}, {"id": "120253253483780222", "camp": "[06]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV47_BNCP003_CAP_MEU DEUS COORDENADORA QUER BNCC COMPUTACAO_0.49", "spend": 18.8, "imp": 1710, "clk": 35, "lpv": 25, "lead": 4, "thru": 162}, {"id": "120253253475820222", "camp": "[06]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "name": "ADV46_BNCP003_CAP_VOCE JA RECEBEU MENSAGEM DA COORDENADORA_0.48", "spend": 6.94, "imp": 633, "clk": 28, "lpv": 23, "lead": 1, "thru": 85}, {"id": "120253099105000222", "camp": "[05]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 4.01, "imp": 333, "clk": 20, "lpv": 20, "lead": 2, "thru": 106}, {"id": "120253099104680222", "camp": "[05]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 77.75, "imp": 9020, "clk": 153, "lpv": 120, "lead": 29, "thru": 1009}, {"id": "120253099104570222", "camp": "[05]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 139.13, "imp": 10740, "clk": 274, "lpv": 201, "lead": 62, "thru": 3045}, {"id": "120253099104470222", "camp": "[05]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 65.5, "imp": 6599, "clk": 139, "lpv": 92, "lead": 34, "thru": 1077}, {"id": "120253099104300222", "camp": "[05]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 1129.02, "imp": 114213, "clk": 2242, "lpv": 1730, "lead": 585, "thru": 18561}, {"id": "120253099090960222", "camp": "[05]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 0.5, "imp": 35, "clk": 3, "lpv": 1, "lead": 0, "thru": 16}, {"id": "120253099090580222", "camp": "[05]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 63.21, "imp": 4457, "clk": 77, "lpv": 63, "lead": 19, "thru": 511}, {"id": "120253099089790222", "camp": "[05]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 553.64, "imp": 33439, "clk": 813, "lpv": 611, "lead": 212, "thru": 8928}, {"id": "120253099088860222", "camp": "[05]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 281.85, "imp": 14784, "clk": 354, "lpv": 265, "lead": 124, "thru": 2535}, {"id": "120253099077480222", "camp": "[05]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 1.99, "imp": 189, "clk": 2, "lpv": 1, "lead": 0, "thru": 28}, {"id": "120253099077380222", "camp": "[05]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 72.2, "imp": 9293, "clk": 163, "lpv": 125, "lead": 34, "thru": 1025}, {"id": "120253099077260222", "camp": "[05]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 130.01, "imp": 10815, "clk": 266, "lpv": 198, "lead": 52, "thru": 3157}, {"id": "120253099076960222", "camp": "[05]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 56.78, "imp": 5717, "clk": 121, "lpv": 89, "lead": 37, "thru": 972}, {"id": "120253099076870222", "camp": "[05]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 1150.74, "imp": 130615, "clk": 2410, "lpv": 1893, "lead": 561, "thru": 20304}, {"id": "120253099075580222", "camp": "[05]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 2436.47, "imp": 111403, "clk": 2946, "lpv": 2446, "lead": 1042, "thru": 21238}, {"id": "120253039175420222", "camp": "[04]", "adset": "02", "adset_name": "02 | RMK VV 25% BNCC019 + BNCP001 + BNCC016 + BNCC017 | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 16.8, "imp": 1409, "clk": 29, "lpv": 21, "lead": 10, "thru": 114}, {"id": "120253039174260222", "camp": "[04]", "adset": "02", "adset_name": "02 | RMK VV 25% BNCC019 + BNCP001 + BNCC016 + BNCC017 | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 385.64, "imp": 54920, "clk": 858, "lpv": 643, "lead": 259, "thru": 4424}, {"id": "120253039173600222", "camp": "[04]", "adset": "02", "adset_name": "02 | RMK VV 25% BNCC019 + BNCP001 + BNCC016 + BNCC017 | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 922.49, "imp": 81063, "clk": 2229, "lpv": 1749, "lead": 756, "thru": 19313}, {"id": "120253039172730222", "camp": "[04]", "adset": "02", "adset_name": "02 | RMK VV 25% BNCC019 + BNCP001 + BNCC016 + BNCC017 | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 725.54, "imp": 76077, "clk": 1759, "lpv": 1339, "lead": 604, "thru": 11866}, {"id": "120253039168420222", "camp": "[04]", "adset": "02", "adset_name": "02 | RMK VV 25% BNCC019 + BNCP001 + BNCC016 + BNCC017 | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 5738.26, "imp": 582979, "clk": 14325, "lpv": 11658, "lead": 5195, "thru": 89147}, {"id": "120253039040520222", "camp": "[04]", "adset": "01", "adset_name": "01 | RMK VV 25% BNCP003 + PG CAPTURA BNCP003 60D | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 202.84, "imp": 18064, "clk": 530, "lpv": 414, "lead": 197, "thru": 2400}, {"id": "120253039040330222", "camp": "[04]", "adset": "01", "adset_name": "01 | RMK VV 25% BNCP003 + PG CAPTURA BNCP003 60D | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 1116.64, "imp": 129074, "clk": 3070, "lpv": 2502, "lead": 1040, "thru": 13305}, {"id": "120253039040220222", "camp": "[04]", "adset": "01", "adset_name": "01 | RMK VV 25% BNCP003 + PG CAPTURA BNCP003 60D | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 703.7, "imp": 62388, "clk": 2009, "lpv": 1617, "lead": 621, "thru": 16468}, {"id": "120253039040050222", "camp": "[04]", "adset": "01", "adset_name": "01 | RMK VV 25% BNCP003 + PG CAPTURA BNCP003 60D | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 521.7, "imp": 52638, "clk": 1381, "lpv": 1090, "lead": 494, "thru": 7492}, {"id": "120253039039930222", "camp": "[04]", "adset": "01", "adset_name": "01 | RMK VV 25% BNCP003 + PG CAPTURA BNCP003 60D | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 1007.71, "imp": 100666, "clk": 2613, "lpv": 2173, "lead": 1081, "thru": 13300}, {"id": "120253039037750222", "camp": "[03]", "adset": "04", "adset_name": "04 | LAL 3-5% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 2.46, "imp": 128, "clk": 2, "lpv": 0, "lead": 0, "thru": 13}, {"id": "120253039037290222", "camp": "[03]", "adset": "04", "adset_name": "04 | LAL 3-5% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 59.91, "imp": 7552, "clk": 93, "lpv": 62, "lead": 11, "thru": 790}, {"id": "120253039036830222", "camp": "[03]", "adset": "04", "adset_name": "04 | LAL 3-5% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 55.8, "imp": 5722, "clk": 119, "lpv": 81, "lead": 20, "thru": 1505}, {"id": "120253039035980222", "camp": "[03]", "adset": "04", "adset_name": "04 | LAL 3-5% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 79.6, "imp": 10109, "clk": 159, "lpv": 109, "lead": 29, "thru": 1539}, {"id": "120253039035670222", "camp": "[03]", "adset": "04", "adset_name": "04 | LAL 3-5% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 2406.43, "imp": 279400, "clk": 4776, "lpv": 3641, "lead": 1131, "thru": 45674}, {"id": "120253039031930222", "camp": "[03]", "adset": "03", "adset_name": "03 | LAL 2-3% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 0.16, "imp": 14, "clk": 0, "lpv": 0, "lead": 0, "thru": 1}, {"id": "120253039031620222", "camp": "[03]", "adset": "03", "adset_name": "03 | LAL 2-3% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 28.29, "imp": 3074, "clk": 28, "lpv": 19, "lead": 6, "thru": 267}, {"id": "120253039031510222", "camp": "[03]", "adset": "03", "adset_name": "03 | LAL 2-3% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 120.36, "imp": 12517, "clk": 240, "lpv": 181, "lead": 43, "thru": 3007}, {"id": "120253039031270222", "camp": "[03]", "adset": "03", "adset_name": "03 | LAL 2-3% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 107.16, "imp": 12231, "clk": 218, "lpv": 161, "lead": 49, "thru": 1979}, {"id": "120253039031060222", "camp": "[03]", "adset": "03", "adset_name": "03 | LAL 2-3% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 1966.16, "imp": 191424, "clk": 3619, "lpv": 2767, "lead": 952, "thru": 32198}, {"id": "120253039027110222", "camp": "[03]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 0.28, "imp": 21, "clk": 1, "lpv": 0, "lead": 0, "thru": 2}, {"id": "120253039027000222", "camp": "[03]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 15.75, "imp": 2237, "clk": 33, "lpv": 21, "lead": 4, "thru": 258}, {"id": "120253039026900222", "camp": "[03]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 62.25, "imp": 7329, "clk": 135, "lpv": 90, "lead": 28, "thru": 1798}, {"id": "120253039026620222", "camp": "[03]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 104.69, "imp": 12908, "clk": 238, "lpv": 166, "lead": 55, "thru": 2158}, {"id": "120253039026330222", "camp": "[03]", "adset": "02", "adset_name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 2660.95, "imp": 324953, "clk": 5705, "lpv": 4416, "lead": 1407, "thru": 53078}, {"id": "120253039020140222", "camp": "[03]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 1.4, "imp": 73, "clk": 2, "lpv": 2, "lead": 1, "thru": 15}, {"id": "120253039019760222", "camp": "[03]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 37.61, "imp": 2880, "clk": 49, "lpv": 35, "lead": 11, "thru": 314}, {"id": "120253039018770222", "camp": "[03]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 183.85, "imp": 10939, "clk": 266, "lpv": 195, "lead": 66, "thru": 2853}, {"id": "120253039018430222", "camp": "[03]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 182.25, "imp": 12530, "clk": 259, "lpv": 198, "lead": 89, "thru": 1926}, {"id": "120253039018120222", "camp": "[03]", "adset": "01", "adset_name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 3560.28, "imp": 209649, "clk": 5255, "lpv": 4191, "lead": 1753, "thru": 35928}, {"id": "120252986585300222", "camp": "[02]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV45_BNCP003_CAP_RT_MENINA ESCOLA PEDINDO_1.05", "spend": 189.32, "imp": 13595, "clk": 303, "lpv": 225, "lead": 83, "thru": 2272}, {"id": "120252986570590222", "camp": "[02]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV44_BNCP003_CAP_RT_COMPLEMENTO OBRIGATORIO_1.16", "spend": 5.33, "imp": 244, "clk": 5, "lpv": 3, "lead": 3, "thru": 27}, {"id": "120252986558780222", "camp": "[02]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV43_BNCP003_CAP_RT_ENTROU EM VIGOR JA ESTA COLOCANDO_0.48", "spend": 4.22, "imp": 226, "clk": 1, "lpv": 0, "lead": 0, "thru": 20}, {"id": "120252986544900222", "camp": "[02]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV39_BNCP003_CAP_RT_PROFESSOR VOCE FICOU SABENDO_0.41", "spend": 12.79, "imp": 790, "clk": 15, "lpv": 10, "lead": 4, "thru": 74}, {"id": "120252986535540222", "camp": "[02]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV38_BNCP003_CAP_RT_PROFESSORA VOCE SABIA_0.42", "spend": 0.13, "imp": 16, "clk": 0, "lpv": 0, "lead": 0, "thru": 2}, {"id": "120252986529350222", "camp": "[02]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V2 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV45_BNCP003_CAP_RT_MENINA ESCOLA PEDINDO_1.05", "spend": 148.18, "imp": 9058, "clk": 194, "lpv": 132, "lead": 54, "thru": 1512}, {"id": "120252986526030222", "camp": "[02]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V2 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV44_BNCP003_CAP_RT_COMPLEMENTO OBRIGATORIO_1.16", "spend": 2.1, "imp": 65, "clk": 1, "lpv": 1, "lead": 0, "thru": 9}, {"id": "120252986521790222", "camp": "[02]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V2 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV43_BNCP003_CAP_RT_ENTROU EM VIGOR JA ESTA COLOCANDO_0.48", "spend": 34.23, "imp": 2287, "clk": 39, "lpv": 30, "lead": 14, "thru": 243}, {"id": "120252986516130222", "camp": "[02]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V2 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV39_BNCP003_CAP_RT_PROFESSOR VOCE FICOU SABENDO_0.41", "spend": 21.13, "imp": 1123, "clk": 21, "lpv": 17, "lead": 7, "thru": 116}, {"id": "120252986511310222", "camp": "[02]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V2 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV38_BNCP003_CAP_RT_PROFESSORA VOCE SABIA_0.42", "spend": 1.17, "imp": 49, "clk": 1, "lpv": 1, "lead": 1, "thru": 3}, {"id": "120252986506680222", "camp": "[02]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV45_BNCP003_CAP_RT_MENINA ESCOLA PEDINDO_1.05", "spend": 133.27, "imp": 9722, "clk": 211, "lpv": 155, "lead": 62, "thru": 1534}, {"id": "120252986503420222", "camp": "[02]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV44_BNCP003_CAP_RT_COMPLEMENTO OBRIGATORIO_1.16", "spend": 4.83, "imp": 162, "clk": 3, "lpv": 2, "lead": 2, "thru": 17}, {"id": "120252986498620222", "camp": "[02]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV43_BNCP003_CAP_RT_ENTROU EM VIGOR JA ESTA COLOCANDO_0.48", "spend": 18.51, "imp": 959, "clk": 27, "lpv": 22, "lead": 8, "thru": 109}, {"id": "120252986492640222", "camp": "[02]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV39_BNCP003_CAP_RT_PROFESSOR VOCE FICOU SABENDO_0.41", "spend": 53.15, "imp": 2814, "clk": 57, "lpv": 29, "lead": 18, "thru": 324}, {"id": "120252986488230222", "camp": "[02]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV45-ADV44-ADV43-ADV38-ADV39", "name": "ADV38_BNCP003_CAP_RT_PROFESSORA VOCE SABIA_0.42", "spend": 2.77, "imp": 141, "clk": 2, "lpv": 0, "lead": 0, "thru": 26}, {"id": "120252986483620222", "camp": "[01]", "adset": "08", "adset_name": "08 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV36-ADV37-ADV40-ADV41-ADV42", "name": "ADV42_BNCP003_CAP_RT_TEM QUE TER COMPUTADOR_0.36", "spend": 4.56, "imp": 297, "clk": 13, "lpv": 8, "lead": 1, "thru": 41}, {"id": "120252986477600222", "camp": "[01]", "adset": "08", "adset_name": "08 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV36-ADV37-ADV40-ADV41-ADV42", "name": "ADV41_BNCP003_CAP_RT_ATENCAO PROFESSOR EM VIGOR_0.58", "spend": 5.8, "imp": 385, "clk": 12, "lpv": 9, "lead": 4, "thru": 52}, {"id": "120252986468350222", "camp": "[01]", "adset": "08", "adset_name": "08 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV36-ADV37-ADV40-ADV41-ADV42", "name": "ADV40_BNCP003_CAP_RT_ENTROU EM VIGOR PLANO DE AULA_0.29", "spend": 3.66, "imp": 225, "clk": 2, "lpv": 2, "lead": 0, "thru": 16}, {"id": "120252986458130222", "camp": "[01]", "adset": "08", "adset_name": "08 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV36-ADV37-ADV40-ADV41-ADV42", "name": "ADV37_BNCP003_CAP_RT_FICOU SABENDO ESCOLAS EXIGINDO_0.26", "spend": 1388.31, "imp": 147217, "clk": 2696, "lpv": 1763, "lead": 785, "thru": 14443}, {"id": "120252986453180222", "camp": "[01]", "adset": "08", "adset_name": "08 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV36-ADV37-ADV40-ADV41-ADV42", "name": "ADV36_BNCP003_CAP_RT_EM VIGOR SO COLOCA SE ENTENDER_0.34", "spend": 7.93, "imp": 243, "clk": 2, "lpv": 2, "lead": 0, "thru": 14}, {"id": "120252986450110222", "camp": "[01]", "adset": "07", "adset_name": "07 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV31-ADV32-ADV33-ADV34-ADV35", "name": "ADV35_BNCP003_CAP_RT_ATENCAO BNCC COMPUTACAO EM VIGOR_0.34", "spend": 1.34, "imp": 115, "clk": 4, "lpv": 2, "lead": 1, "thru": 16}, {"id": "120252986446110222", "camp": "[01]", "adset": "07", "adset_name": "07 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV31-ADV32-ADV33-ADV34-ADV35", "name": "ADV34_BNCP003_CAP_RT_BNCC COMPUTACAO ESTA EM VIGOR_0.33", "spend": 2.07, "imp": 135, "clk": 3, "lpv": 3, "lead": 0, "thru": 21}, {"id": "120252986442040222", "camp": "[01]", "adset": "07", "adset_name": "07 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV31-ADV32-ADV33-ADV34-ADV35", "name": "ADV33_BNCP003_CAP_JOGO RAPIDO BNCC COMPUTACAO_1.17", "spend": 17.14, "imp": 724, "clk": 17, "lpv": 14, "lead": 4, "thru": 98}, {"id": "120252986434980222", "camp": "[01]", "adset": "07", "adset_name": "07 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV31-ADV32-ADV33-ADV34-ADV35", "name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 1394.65, "imp": 138428, "clk": 3447, "lpv": 2450, "lead": 841, "thru": 36532}, {"id": "120252986430710222", "camp": "[01]", "adset": "07", "adset_name": "07 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV31-ADV32-ADV33-ADV34-ADV35", "name": "ADV31_BNCP003_CAP_CODIGOS ALFANUMERICOS DA BNCC_0.59", "spend": 1.93, "imp": 126, "clk": 5, "lpv": 2, "lead": 1, "thru": 23}, {"id": "120252986426880222", "camp": "[01]", "adset": "06", "adset_name": "06 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV26-ADV27-ADV28-ADV29-ADV30", "name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 2151.53, "imp": 325556, "clk": 5330, "lpv": 4145, "lead": 1424, "thru": 45501}, {"id": "120252986421790222", "camp": "[01]", "adset": "06", "adset_name": "06 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV26-ADV27-ADV28-ADV29-ADV30", "name": "ADV29_BNCP003_CAP_ESCOLA PEDINDO BNCC COMPUTACAO_1.07", "spend": 0.78, "imp": 101, "clk": 2, "lpv": 2, "lead": 0, "thru": 17}, {"id": "120252986417430222", "camp": "[01]", "adset": "06", "adset_name": "06 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV26-ADV27-ADV28-ADV29-ADV30", "name": "ADV28_BNCP003_CAP_COMO DESENVOLVO PENSAMENTO COMPUTACIONAL_1.19", "spend": 0.12, "imp": 15, "clk": 0, "lpv": 0, "lead": 0, "thru": 3}, {"id": "120252986411070222", "camp": "[01]", "adset": "06", "adset_name": "06 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV26-ADV27-ADV28-ADV29-ADV30", "name": "ADV27_BNCP003_CAP_CONTAGEM REGRESSIVA FERIAS_1.13", "spend": 8.75, "imp": 609, "clk": 12, "lpv": 9, "lead": 2, "thru": 120}, {"id": "120252986406710222", "camp": "[01]", "adset": "06", "adset_name": "06 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV26-ADV27-ADV28-ADV29-ADV30", "name": "ADV26_BNCP003_CAP_MAE NA SUA EPOCA PESQUISA_1.28", "spend": 44.21, "imp": 2652, "clk": 77, "lpv": 54, "lead": 20, "thru": 698}, {"id": "120252986396560222", "camp": "[01]", "adset": "05", "adset_name": "05 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV21-ADV22-ADV23-ADV24-ADV25", "name": "ADV25_BNCP003_CAP_PROFESSORA VOCE FICOU SABENDO V2_0.37", "spend": 4.86, "imp": 298, "clk": 8, "lpv": 5, "lead": 1, "thru": 61}, {"id": "120252986376970222", "camp": "[01]", "adset": "05", "adset_name": "05 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV21-ADV22-ADV23-ADV24-ADV25", "name": "ADV24_BNCP003_CAP_FERIAS E DESCANSO DE VERDADE_1.05", "spend": 7.16, "imp": 323, "clk": 7, "lpv": 5, "lead": 0, "thru": 34}, {"id": "120252986372960222", "camp": "[01]", "adset": "05", "adset_name": "05 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV21-ADV22-ADV23-ADV24-ADV25", "name": "ADV23_BNCP003_CAP_FERIAS EM PAZ PLANEJAMENTO_0.50", "spend": 7.9, "imp": 228, "clk": 0, "lpv": 0, "lead": 0, "thru": 16}, {"id": "120252986367490222", "camp": "[01]", "adset": "05", "adset_name": "05 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV21-ADV22-ADV23-ADV24-ADV25", "name": "ADV22_BNCP003_CAP_TODA PROFESSORA CONVITE ESPECIAL_0.26", "spend": 65.98, "imp": 6070, "clk": 114, "lpv": 79, "lead": 30, "thru": 945}, {"id": "120252986363900222", "camp": "[01]", "adset": "05", "adset_name": "05 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV21-ADV22-ADV23-ADV24-ADV25", "name": "ADV21_BNCP003_CAP_TENHO 89 ANOS_1.35", "spend": 348.03, "imp": 27483, "clk": 934, "lpv": 652, "lead": 147, "thru": 6604}, {"id": "120252986359680222", "camp": "[01]", "adset": "04", "adset_name": "04 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV16-ADV17-ADV18-ADV19-ADV20", "name": "ADV20_BNCP003_CAP_FERIAS COM PLANEJAMENTO MONTADO_0.43", "spend": 3.64, "imp": 261, "clk": 9, "lpv": 2, "lead": 0, "thru": 24}, {"id": "120252986355180222", "camp": "[01]", "adset": "04", "adset_name": "04 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV16-ADV17-ADV18-ADV19-ADV20", "name": "ADV19_BNCP003_CAP_ESSA MULHER ME EXPLICOU TUDO_0.35", "spend": 54.58, "imp": 3316, "clk": 57, "lpv": 43, "lead": 17, "thru": 305}, {"id": "120252986349280222", "camp": "[01]", "adset": "04", "adset_name": "04 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV16-ADV17-ADV18-ADV19-ADV20", "name": "ADV18_BNCP003_CAP_MAE VIU O RADIO CHEGAR_1.01", "spend": 66.74, "imp": 3574, "clk": 81, "lpv": 48, "lead": 24, "thru": 709}, {"id": "120252986345180222", "camp": "[01]", "adset": "04", "adset_name": "04 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV16-ADV17-ADV18-ADV19-ADV20", "name": "ADV17_BNCP003_CAP_APAGAO DE PROFESSORES_1.07", "spend": 297.56, "imp": 29023, "clk": 515, "lpv": 344, "lead": 110, "thru": 4510}, {"id": "120252986342120222", "camp": "[01]", "adset": "04", "adset_name": "04 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV16-ADV17-ADV18-ADV19-ADV20", "name": "ADV16_BNCP003_CAP_PLANEJAMENTO 2027 FERIAS_0.56", "spend": 9.49, "imp": 628, "clk": 10, "lpv": 6, "lead": 0, "thru": 65}, {"id": "120252986333990222", "camp": "[01]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV11-ADV12-ADV13-ADV14-ADV15", "name": "ADV15_BNCP003_CAP_VOCE JA ENTENDEU PROFESSOR_0.41", "spend": 48.3, "imp": 3021, "clk": 51, "lpv": 31, "lead": 13, "thru": 295}, {"id": "120252986325540222", "camp": "[01]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV11-ADV12-ADV13-ADV14-ADV15", "name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 1167.0, "imp": 140482, "clk": 2516, "lpv": 1976, "lead": 607, "thru": 15567}, {"id": "120252986320910222", "camp": "[01]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV11-ADV12-ADV13-ADV14-ADV15", "name": "ADV13_BNCP003_CAP_PROFESSORA VOCE FICOU SABENDO_0.45", "spend": 11.59, "imp": 641, "clk": 11, "lpv": 6, "lead": 3, "thru": 126}, {"id": "120252986317080222", "camp": "[01]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV11-ADV12-ADV13-ADV14-ADV15", "name": "ADV12_BNCP003_CAP_5 HORAS CURSO GRATUITO_0.34", "spend": 4.85, "imp": 263, "clk": 4, "lpv": 4, "lead": 1, "thru": 27}, {"id": "120252986312060222", "camp": "[01]", "adset": "03", "adset_name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV11-ADV12-ADV13-ADV14-ADV15", "name": "ADV11_BNCP003_CAP_NAO PRECISA DE COMPUTADOR_1.15", "spend": 6.43, "imp": 238, "clk": 12, "lpv": 8, "lead": 3, "thru": 47}, {"id": "120252983704920222", "camp": "[01]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV06-ADV07-ADV08-ADV09-ADV10", "name": "ADV10_BNCP003_CAP_ATUALIZACAO IMPORTANTE BNCC COMPUTACAO_0.47", "spend": 10.35, "imp": 901, "clk": 229, "lpv": 59, "lead": 0, "thru": 541}, {"id": "120252983699250222", "camp": "[01]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV06-ADV07-ADV08-ADV09-ADV10", "name": "ADV09_BNCP003_CAP_DESCOBRI EVENTO BNCC COMPUTACAO_0.22", "spend": 15.59, "imp": 1022, "clk": 16, "lpv": 13, "lead": 5, "thru": 64}, {"id": "120252983690170222", "camp": "[01]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV06-ADV07-ADV08-ADV09-ADV10", "name": "ADV08_BNCP003_CAP_PLANEJAMENTO PARA 2027_0.45", "spend": 3.37, "imp": 189, "clk": 1, "lpv": 1, "lead": 0, "thru": 19}, {"id": "120252983681220222", "camp": "[01]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV06-ADV07-ADV08-ADV09-ADV10", "name": "ADV07_BNCP003_CAP_DESCOBRI UM JEITO DE APRENDER_0.28", "spend": 148.5, "imp": 19775, "clk": 314, "lpv": 247, "lead": 98, "thru": 1192}, {"id": "120252983676550222", "camp": "[01]", "adset": "02", "adset_name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV06-ADV07-ADV08-ADV09-ADV10", "name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 1684.52, "imp": 186850, "clk": 3965, "lpv": 2743, "lead": 1079, "thru": 31756}, {"id": "120252983673400222", "camp": "[01]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV01-ADV02-ADV03-ADV04-ADV05", "name": "ADV05_BNCP003_CAP_QUER ENTENDER TUDO DE BNCC_0.32", "spend": 5.45, "imp": 411, "clk": 6, "lpv": 4, "lead": 2, "thru": 29}, {"id": "120252983667860222", "camp": "[01]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV01-ADV02-ADV03-ADV04-ADV05", "name": "ADV03_BNCP003_CAP_QUER ENTENDER BNCC COMPUTACAO_0.39", "spend": 4.88, "imp": 329, "clk": 7, "lpv": 5, "lead": 1, "thru": 23}, {"id": "120252983663370222", "camp": "[01]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV01-ADV02-ADV03-ADV04-ADV05", "name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 660.59, "imp": 51063, "clk": 1177, "lpv": 866, "lead": 337, "thru": 7638}, {"id": "120252981928020222", "camp": "[01]", "adset": "01", "adset_name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV01-ADV02-ADV03-ADV04-ADV05", "name": "ADV01_BNCP003_CAP_ATENCAO PROFESSORA BNCC ATUALIZACOES_0.42", "spend": 19.31, "imp": 1392, "clk": 21, "lpv": 14, "lead": 9, "thru": 132}], "adsets": [{"id": "120253253364170222", "camp": "[06]", "name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "spend": 991.4, "imp": 95848, "reach": 80699, "clk": 1815, "lpv": 1262, "lead": 320}, {"id": "120253253363760222", "camp": "[06]", "name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV46-ADV47-ADV48-ADV49", "spend": 808.49, "imp": 69226, "reach": 52098, "clk": 1325, "lpv": 991, "lead": 324}, {"id": "120253099067020222", "camp": "[05]", "name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 1415.41, "imp": 140905, "reach": 118536, "clk": 2828, "lpv": 2163, "lead": 712}, {"id": "120253099066750222", "camp": "[05]", "name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 1411.72, "imp": 156629, "reach": 129779, "clk": 2962, "lpv": 2306, "lead": 684}, {"id": "120253099065080222", "camp": "[05]", "name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V3 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 3335.67, "imp": 164118, "reach": 131152, "clk": 4193, "lpv": 3386, "lead": 1397}, {"id": "120253039159570222", "camp": "[04]", "name": "02 | RMK VV 25% BNCC019 + BNCP001 + BNCC016 + BNCC017 | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 7788.73, "imp": 796448, "reach": 402733, "clk": 19200, "lpv": 15410, "lead": 6824}, {"id": "120253039026010222", "camp": "[04]", "name": "01 | RMK VV 25% BNCP003 + PG CAPTURA BNCP003 60D | 25-65 | M+H | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 3552.59, "imp": 362830, "reach": 140501, "clk": 9603, "lpv": 7796, "lead": 3433}, {"id": "120253039012120222", "camp": "[03]", "name": "04 | LAL 3-5% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 2604.2, "imp": 302911, "reach": 233232, "clk": 5149, "lpv": 3893, "lead": 1191}, {"id": "120253039011370222", "camp": "[03]", "name": "03 | LAL 2-3% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 2222.13, "imp": 219260, "reach": 178497, "clk": 4105, "lpv": 3128, "lead": 1050}, {"id": "120253039010580222", "camp": "[03]", "name": "02 | LAL 1-2% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 2843.92, "imp": 347448, "reach": 269986, "clk": 6112, "lpv": 4693, "lead": 1494}, {"id": "120253039010110222", "camp": "[03]", "name": "01 | LAL 0-1% COMPRADORES | 35-64 | M | ABO | PAGINA V1 | ADV30-ADV06-ADV32-ADV14-ADV02", "spend": 3965.39, "imp": 236071, "reach": 168357, "clk": 5831, "lpv": 4621, "lead": 1920}, {"id": "120252979464400222", "camp": "[02]", "name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V3 | ADV45-ADV44-ADV43-ADV38-ADV39", "spend": 211.79, "imp": 14871, "reach": 13470, "clk": 324, "lpv": 238, "lead": 90}, {"id": "120252979464080222", "camp": "[02]", "name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V2 | ADV45-ADV44-ADV43-ADV38-ADV39", "spend": 206.81, "imp": 12582, "reach": 10583, "clk": 256, "lpv": 181, "lead": 76}, {"id": "120252979463560222", "camp": "[02]", "name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV45-ADV44-ADV43-ADV38-ADV39", "spend": 212.53, "imp": 13798, "reach": 12175, "clk": 300, "lpv": 208, "lead": 90}, {"id": "120252979463000222", "camp": "[01]", "name": "08 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV36-ADV37-ADV40-ADV41-ADV42", "spend": 1410.26, "imp": 148367, "reach": 110254, "clk": 2725, "lpv": 1784, "lead": 790}, {"id": "120252979461520222", "camp": "[01]", "name": "07 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV31-ADV32-ADV33-ADV34-ADV35", "spend": 1417.13, "imp": 139528, "reach": 105078, "clk": 3476, "lpv": 2471, "lead": 847}, {"id": "120252979460230222", "camp": "[01]", "name": "06 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV26-ADV27-ADV28-ADV29-ADV30", "spend": 2205.39, "imp": 328933, "reach": 241173, "clk": 5421, "lpv": 4210, "lead": 1446}, {"id": "120252979450800222", "camp": "[01]", "name": "03 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV11-ADV12-ADV13-ADV14-ADV15", "spend": 1238.17, "imp": 144645, "reach": 105114, "clk": 2594, "lpv": 2025, "lead": 627}, {"id": "120252979449240222", "camp": "[01]", "name": "02 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV06-ADV07-ADV08-ADV09-ADV10", "spend": 1862.33, "imp": 208737, "reach": 153165, "clk": 4525, "lpv": 3063, "lead": 1182}, {"id": "120252979456470222", "camp": "[01]", "name": "05 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV21-ADV22-ADV23-ADV24-ADV25", "spend": 433.93, "imp": 34402, "reach": 26361, "clk": 1063, "lpv": 741, "lead": 178}, {"id": "120252979454440222", "camp": "[01]", "name": "04 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV16-ADV17-ADV18-ADV19-ADV20", "spend": 432.01, "imp": 36802, "reach": 28335, "clk": 672, "lpv": 443, "lead": 151}, {"id": "120252979395960222", "camp": "[01]", "name": "01 | INTERESSE COORDENADORA + P-ADVANTAGE | 35-64 | M | ABO | PAGINA V1 | ADV01-ADV02-ADV03-ADV04-ADV05", "spend": 690.23, "imp": 53195, "reach": 45766, "clk": 1211, "lpv": 889, "lead": 349}], "daily": [{"spend": 36.82, "imp": 2000, "clk": 27, "lpv": 21, "lead": 11, "date": "2026-10-09", "mc": 14}, {"spend": 714.01, "imp": 39956, "clk": 939, "lpv": 677, "lead": 303, "date": "2026-10-10", "mc": 308}, {"spend": 756.38, "imp": 49350, "clk": 1181, "lpv": 863, "lead": 428, "date": "2026-10-11", "mc": 428}, {"spend": 697.24, "imp": 61975, "clk": 1353, "lpv": 983, "lead": 424, "date": "2026-10-12", "mc": 418}, {"spend": 515.47, "imp": 54528, "clk": 1207, "lpv": 887, "lead": 352, "date": "2026-10-13", "mc": 341}, {"spend": 439.82, "imp": 57077, "clk": 1122, "lpv": 802, "lead": 290, "date": "2026-10-14", "mc": 282}, {"spend": 695.88, "imp": 74470, "clk": 1681, "lpv": 1248, "lead": 552, "date": "2026-10-15", "mc": 541}, {"spend": 851.56, "imp": 90973, "clk": 2176, "lpv": 1672, "lead": 832, "date": "2026-10-16", "mc": 856}, {"spend": 829.6800000000001, "imp": 115844, "clk": 2558, "lpv": 1956, "lead": 844, "date": "2026-10-17", "mc": 863}, {"spend": 1372.51, "imp": 196716, "clk": 4185, "lpv": 3239, "lead": 1450, "date": "2026-10-18", "mc": 1458}, {"spend": 1715.95, "imp": 210966, "clk": 4381, "lpv": 3384, "lead": 1229, "date": "2026-10-19", "mc": 1440}, {"spend": 1585.69, "imp": 168295, "clk": 3513, "lpv": 2698, "lead": 765, "date": "2026-10-20", "mc": 1145}, {"spend": 1278.52, "imp": 103012, "clk": 2377, "lpv": 1936, "lead": 715, "date": "2026-10-21", "mc": 851}, {"spend": 2718.06, "imp": 208818, "clk": 4896, "lpv": 3799, "lead": 1453, "date": "2026-10-22", "mc": 1672}, {"spend": 2275.35, "imp": 182930, "clk": 4289, "lpv": 3393, "lead": 1373, "date": "2026-10-23", "mc": 1618}, {"spend": 1876.9599999999998, "imp": 162674, "clk": 3817, "lpv": 3039, "lead": 1187, "date": "2026-10-24", "mc": 1445}, {"spend": 2028.4899999999998, "imp": 185652, "clk": 3745, "lpv": 2908, "lead": 1067, "date": "2026-10-25", "mc": 1294}, {"spend": 1780.03, "imp": 184341, "clk": 3526, "lpv": 2711, "lead": 966, "date": "2026-10-26", "mc": 1137}, {"spend": 2595.08, "imp": 234470, "clk": 4823, "lpv": 3772, "lead": 1354, "date": "2026-10-27", "mc": 1597}, {"spend": 2137.5299999999997, "imp": 199648, "clk": 4138, "lpv": 3219, "lead": 1136, "date": "2026-10-28", "mc": 1276}, {"spend": 2594.2100000000005, "imp": 243395, "clk": 4747, "lpv": 3636, "lead": 1491, "date": "2026-10-29", "mc": 1464}, {"spend": 2566.5199999999995, "imp": 236332, "clk": 4901, "lpv": 3819, "lead": 1438, "date": "2026-10-30", "mc": 1464}, {"spend": 2349.07, "imp": 220986, "clk": 4731, "lpv": 3578, "lead": 1268, "date": "2026-10-31", "mc": 1251}, {"spend": 2510.9300000000003, "imp": 249673, "clk": 5084, "lpv": 3839, "lead": 1363, "date": "2026-11-01", "mc": 1332}, {"spend": 2069.27, "imp": 228617, "clk": 4731, "lpv": 3575, "lead": 1240, "date": "2026-11-02", "mc": 1239}, {"spend": 1104.3400000000001, "imp": 142726, "clk": 2889, "lpv": 2138, "lead": 755, "date": "2026-11-03", "mc": 786}, {"spend": 581.37, "imp": 63180, "clk": 1280, "lpv": 991, "lead": 380, "date": "2026-11-04", "mc": 379}, {"spend": 191.74, "imp": 18903, "clk": 409, "lpv": 321, "lead": 138, "date": "2026-11-05", "mc": 167}, {"spend": 125.33, "imp": 12408, "clk": 307, "lpv": 247, "lead": 123, "date": "2026-11-06", "mc": 126}, {"spend": 140.29, "imp": 14284, "clk": 356, "lpv": 294, "lead": 140, "date": "2026-11-07", "mc": 152}, {"spend": 126.13, "imp": 13355, "clk": 321, "lpv": 256, "lead": 107, "date": "2026-11-08", "mc": 162}], "creatives": [{"name": "ADV49_BNCP003_CAP_COORDENADORA PEDINDO SALA BNCC COMPUTACAO_1.09", "spend": 5.130000000000001, "imp": 468, "clk": 4, "lpv": 1, "lead": 1, "thru": 33, "camps": ["[06]"], "drive": "https://drive.google.com/file/d/1w5XLV9jI8-e4B17tD2O1aA5LW03cZQOt/view"}, {"name": "ADV48_BNCP003_CAP_MEU DEUS COORDENADORA QUER BNCC COMPUTACAO 2_0.49", "spend": 1759.4099999999999, "imp": 161013, "clk": 3067, "lpv": 2201, "lead": 638, "thru": 19742, "camps": ["[06]"], "drive": "https://drive.google.com/file/d/1u5TZzg9nV2rm44NkZB3VkaUz2mcuHep7/view"}, {"name": "ADV47_BNCP003_CAP_MEU DEUS COORDENADORA QUER BNCC COMPUTACAO_0.49", "spend": 23.67, "imp": 2351, "clk": 39, "lpv": 28, "lead": 4, "thru": 211, "camps": ["[06]"], "drive": "https://drive.google.com/file/d/1lJNav08lPXlPMyEXaD9fywFKs4flzNzg/view"}, {"name": "ADV46_BNCP003_CAP_VOCE JA RECEBEU MENSAGEM DA COORDENADORA_0.48", "spend": 11.68, "imp": 1242, "clk": 30, "lpv": 23, "lead": 1, "thru": 102, "camps": ["[06]"], "drive": "https://drive.google.com/file/d/1sBrVZsHo0YKFYF7vpX6_zGDbbN3zz222/view"}, {"name": "ADV02_BNCP003_CAP_AINDA NAO ENTENDEU A BNCC_0.54", "spend": 891.0300000000001, "imp": 71329, "clk": 1766, "lpv": 1325, "lead": 547, "thru": 10333, "camps": ["[01]", "[03]", "[04]", "[05]"], "drive": "https://drive.google.com/file/d/1lABS64MeoI5bu4iKiSGfknwVS2lGcg_I/view"}, {"name": "ADV14_BNCP003_CAP_ENTROU EM VIGOR FINAL DO ANO_0.55", "spend": 3024.0, "imp": 362989, "clk": 7040, "lpv": 5566, "lead": 2020, "thru": 37470, "camps": ["[01]", "[03]", "[04]", "[05]"], "drive": "https://drive.google.com/file/d/1cS_lpvQ1yXW-OLbgc2zo5jlThjCicwCz/view"}, {"name": "ADV32_BNCP003_CAP_MAMAE SABE O QUE E ALGORITMO_1.04", "spend": 4265.880000000001, "imp": 373380, "clk": 9798, "lpv": 7373, "lead": 2701, "thru": 96606, "camps": ["[01]", "[03]", "[04]", "[05]"], "drive": "https://drive.google.com/file/d/1P581cMMkxzY5_U7dDm2HTX1Hi-blatsL/view"}, {"name": "ADV06_BNCP003_CAP_O QUE E PENSAMENTO COMPUTACIONAL_1.29", "spend": 3809.59, "imp": 390443, "clk": 8593, "lpv": 6252, "lead": 2594, "thru": 63300, "camps": ["[01]", "[03]", "[04]", "[05]"], "drive": "https://drive.google.com/file/d/1m761RuwHB6HUhFEXeJGqu0Vr2zpvA3A7/view"}, {"name": "ADV30_BNCP003_CAP_COORDENADOR FALOU BNCC COMPUTACAO_1.25", "spend": 24207.55, "imp": 2370858, "clk": 49221, "lpv": 39060, "lead": 15131, "thru": 374929, "camps": ["[01]", "[03]", "[04]", "[05]"], "drive": "https://drive.google.com/file/d/1nt3LiVOg-_sCp22KrZOzf4JDpiFT-fhz/view"}, {"name": "ADV45_BNCP003_CAP_RT_MENINA ESCOLA PEDINDO_1.05", "spend": 470.77, "imp": 32375, "clk": 708, "lpv": 512, "lead": 199, "thru": 5318, "camps": ["[02]"], "drive": "https://drive.google.com/file/d/1KWrF7Lrzqxx-73SvBC0x5vfMeVCofpcN/view"}, {"name": "ADV44_BNCP003_CAP_RT_COMPLEMENTO OBRIGATORIO_1.16", "spend": 12.26, "imp": 471, "clk": 9, "lpv": 6, "lead": 5, "thru": 53, "camps": ["[02]"], "drive": "https://drive.google.com/file/d/1NGCCILZtVjUVseZX3uCFDMjWg2uTVhF0/view"}, {"name": "ADV43_BNCP003_CAP_RT_ENTROU EM VIGOR JA ESTA COLOCANDO_0.48", "spend": 56.959999999999994, "imp": 3472, "clk": 67, "lpv": 52, "lead": 22, "thru": 372, "camps": ["[02]"], "drive": "https://drive.google.com/file/d/1lTbiVnC4JM-KR2rQ_QHoz1cwb_lKfhb3/view"}, {"name": "ADV39_BNCP003_CAP_RT_PROFESSOR VOCE FICOU SABENDO_0.41", "spend": 87.07, "imp": 4727, "clk": 93, "lpv": 56, "lead": 29, "thru": 514, "camps": ["[02]"], "drive": "https://drive.google.com/file/d/1Y-l4HqtXiIn396krKOIvy7Jc8LLbJT5d/view"}, {"name": "ADV38_BNCP003_CAP_RT_PROFESSORA VOCE SABIA_0.42", "spend": 4.07, "imp": 206, "clk": 3, "lpv": 1, "lead": 1, "thru": 31, "camps": ["[02]"], "drive": "https://drive.google.com/file/d/1djW1cP8q4ANYi8zKguTjUUlMwvYjfKvO/view"}, {"name": "ADV42_BNCP003_CAP_RT_TEM QUE TER COMPUTADOR_0.36", "spend": 4.56, "imp": 297, "clk": 13, "lpv": 8, "lead": 1, "thru": 41, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1j6UKTHvyE9xdaInqZlbTzU1RZF4muEVQ/view"}, {"name": "ADV41_BNCP003_CAP_RT_ATENCAO PROFESSOR EM VIGOR_0.58", "spend": 5.8, "imp": 385, "clk": 12, "lpv": 9, "lead": 4, "thru": 52, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1lULOkKYkjznhhcHsomHL1bphhcsXHGnz/view"}, {"name": "ADV40_BNCP003_CAP_RT_ENTROU EM VIGOR PLANO DE AULA_0.29", "spend": 3.66, "imp": 225, "clk": 2, "lpv": 2, "lead": 0, "thru": 16, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1AlKbWW1egyCbKNgeoYTg-lqdYRfA9CA0/view"}, {"name": "ADV37_BNCP003_CAP_RT_FICOU SABENDO ESCOLAS EXIGINDO_0.26", "spend": 1388.31, "imp": 147217, "clk": 2696, "lpv": 1763, "lead": 785, "thru": 14443, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1iANufLXmE2MF8H_e7IOmjQriM9HrKftu/view"}, {"name": "ADV36_BNCP003_CAP_RT_EM VIGOR SO COLOCA SE ENTENDER_0.34", "spend": 7.93, "imp": 243, "clk": 2, "lpv": 2, "lead": 0, "thru": 14, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/13NlRP-Wjgc0VRwBmEZ9BTYg_VUmTm194/view"}, {"name": "ADV35_BNCP003_CAP_RT_ATENCAO BNCC COMPUTACAO EM VIGOR_0.34", "spend": 1.34, "imp": 115, "clk": 4, "lpv": 2, "lead": 1, "thru": 16, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1FgUiRnwlfiK19MPCgG-kpcDKQsCFuLvV/view"}, {"name": "ADV34_BNCP003_CAP_RT_BNCC COMPUTACAO ESTA EM VIGOR_0.33", "spend": 2.07, "imp": 135, "clk": 3, "lpv": 3, "lead": 0, "thru": 21, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1AB0k67KfF8wvM4axVnm_S4yzO2uWinmd/view"}, {"name": "ADV33_BNCP003_CAP_JOGO RAPIDO BNCC COMPUTACAO_1.17", "spend": 17.14, "imp": 724, "clk": 17, "lpv": 14, "lead": 4, "thru": 98, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1ORp9IyjTEuz3y8u2yw6FqxEisHV_utqz/view"}, {"name": "ADV31_BNCP003_CAP_CODIGOS ALFANUMERICOS DA BNCC_0.59", "spend": 1.93, "imp": 126, "clk": 5, "lpv": 2, "lead": 1, "thru": 23, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1ko2EbU0HoTuSNP1DIs43u-q30BET2CTd/view"}, {"name": "ADV29_BNCP003_CAP_ESCOLA PEDINDO BNCC COMPUTACAO_1.07", "spend": 0.78, "imp": 101, "clk": 2, "lpv": 2, "lead": 0, "thru": 17, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/16wVtZAwvyKfPb3UR5TumkAHo2kIzNOt0/view"}, {"name": "ADV28_BNCP003_CAP_COMO DESENVOLVO PENSAMENTO COMPUTACIONAL_1.19", "spend": 0.12, "imp": 15, "clk": 0, "lpv": 0, "lead": 0, "thru": 3, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1Uvd7YY8lfWLlF_BGLKaufcntuVeKQwh5/view"}, {"name": "ADV27_BNCP003_CAP_CONTAGEM REGRESSIVA FERIAS_1.13", "spend": 8.75, "imp": 609, "clk": 12, "lpv": 9, "lead": 2, "thru": 120, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1Q4a5QkVM0VAwgwD9bzne_ca6OisiHbmd/view"}, {"name": "ADV26_BNCP003_CAP_MAE NA SUA EPOCA PESQUISA_1.28", "spend": 44.21, "imp": 2652, "clk": 77, "lpv": 54, "lead": 20, "thru": 698, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1zsNcWRlySR2EH5nyFPzyeBdbYFENPjJv/view"}, {"name": "ADV25_BNCP003_CAP_PROFESSORA VOCE FICOU SABENDO V2_0.37", "spend": 4.86, "imp": 298, "clk": 8, "lpv": 5, "lead": 1, "thru": 61, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1-FOtiytTwukRu3yYqOhC4gmkIBmoLzLj/view"}, {"name": "ADV24_BNCP003_CAP_FERIAS E DESCANSO DE VERDADE_1.05", "spend": 7.16, "imp": 323, "clk": 7, "lpv": 5, "lead": 0, "thru": 34, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1BQljC40S6aZxz160ZjxIOIOoBGGWSAcR/view"}, {"name": "ADV23_BNCP003_CAP_FERIAS EM PAZ PLANEJAMENTO_0.50", "spend": 7.9, "imp": 228, "clk": 0, "lpv": 0, "lead": 0, "thru": 16, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/13Oj0WL9GoAPzimQjMWpR5az_emNvf-Ot/view"}, {"name": "ADV22_BNCP003_CAP_TODA PROFESSORA CONVITE ESPECIAL_0.26", "spend": 65.98, "imp": 6070, "clk": 114, "lpv": 79, "lead": 30, "thru": 945, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1fkZRFdFmBsd-IPG4AspRCj2JAhitiGXj/view"}, {"name": "ADV21_BNCP003_CAP_TENHO 89 ANOS_1.35", "spend": 348.03, "imp": 27483, "clk": 934, "lpv": 652, "lead": 147, "thru": 6604, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1MKDM0-Oen6taqQ1XFvqTBFlXqq9yoI0j/view"}, {"name": "ADV20_BNCP003_CAP_FERIAS COM PLANEJAMENTO MONTADO_0.43", "spend": 3.64, "imp": 261, "clk": 9, "lpv": 2, "lead": 0, "thru": 24, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/14tdpX6fgXOZL-8EvKrfvdGbINMbIeSox/view"}, {"name": "ADV19_BNCP003_CAP_ESSA MULHER ME EXPLICOU TUDO_0.35", "spend": 54.58, "imp": 3316, "clk": 57, "lpv": 43, "lead": 17, "thru": 305, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1qqHWU74L7rdu1daT9W3eGTdUwLKwqWWH/view"}, {"name": "ADV18_BNCP003_CAP_MAE VIU O RADIO CHEGAR_1.01", "spend": 66.74, "imp": 3574, "clk": 81, "lpv": 48, "lead": 24, "thru": 709, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1Lc_Z6TBNKFl9dQWUu1Mzblzr9zqlg4YX/view"}, {"name": "ADV17_BNCP003_CAP_APAGAO DE PROFESSORES_1.07", "spend": 297.56, "imp": 29023, "clk": 515, "lpv": 344, "lead": 110, "thru": 4510, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1nbO5AFR1D0l1Lt8txjD2Sg_F6GaHe4eg/view"}, {"name": "ADV16_BNCP003_CAP_PLANEJAMENTO 2027 FERIAS_0.56", "spend": 9.49, "imp": 628, "clk": 10, "lpv": 6, "lead": 0, "thru": 65, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1oqV0JhuwKuuJdpxLvPRcxhqwupbVxHWt/view"}, {"name": "ADV15_BNCP003_CAP_VOCE JA ENTENDEU PROFESSOR_0.41", "spend": 48.3, "imp": 3021, "clk": 51, "lpv": 31, "lead": 13, "thru": 295, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1EYG4HcXioxfaf0AhZVD10zOT0GfB2X9H/view"}, {"name": "ADV13_BNCP003_CAP_PROFESSORA VOCE FICOU SABENDO_0.45", "spend": 11.59, "imp": 641, "clk": 11, "lpv": 6, "lead": 3, "thru": 126, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/18Vas0Jz1a9TCUxmt_6EuX2AZN5aJJlEe/view"}, {"name": "ADV12_BNCP003_CAP_5 HORAS CURSO GRATUITO_0.34", "spend": 4.85, "imp": 263, "clk": 4, "lpv": 4, "lead": 1, "thru": 27, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1QnSqdWE_30qotn7ZxXdbjQnou-yRP4jt/view"}, {"name": "ADV11_BNCP003_CAP_NAO PRECISA DE COMPUTADOR_1.15", "spend": 6.43, "imp": 238, "clk": 12, "lpv": 8, "lead": 3, "thru": 47, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1fOU58WowMoCb5tGCIHcrub4C5wqu4lal/view"}, {"name": "ADV10_BNCP003_CAP_ATUALIZACAO IMPORTANTE BNCC COMPUTACAO_0.47", "spend": 10.35, "imp": 901, "clk": 229, "lpv": 59, "lead": 0, "thru": 541, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1GTs_fWocnhWhyhXh6ra8tc478PkHpH3T/view"}, {"name": "ADV09_BNCP003_CAP_DESCOBRI EVENTO BNCC COMPUTACAO_0.22", "spend": 15.59, "imp": 1022, "clk": 16, "lpv": 13, "lead": 5, "thru": 64, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1yHGSRTVNxj_SNWeNZOuDh-He9Hxp_l_G/view"}, {"name": "ADV08_BNCP003_CAP_PLANEJAMENTO PARA 2027_0.45", "spend": 3.37, "imp": 189, "clk": 1, "lpv": 1, "lead": 0, "thru": 19, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/11Dmlg9bhLP1GAe4XAKKRE2xqbt-eC7aY/view"}, {"name": "ADV07_BNCP003_CAP_DESCOBRI UM JEITO DE APRENDER_0.28", "spend": 148.5, "imp": 19775, "clk": 314, "lpv": 247, "lead": 98, "thru": 1192, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1sxvef0i5ohuvC3bS2PbmEoKOW5ZrDMtL/view"}, {"name": "ADV05_BNCP003_CAP_QUER ENTENDER TUDO DE BNCC_0.32", "spend": 5.45, "imp": 411, "clk": 6, "lpv": 4, "lead": 2, "thru": 29, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/189VA4r79LcRXgWPoztUjodMil-Cncgjl/view"}, {"name": "ADV03_BNCP003_CAP_QUER ENTENDER BNCC COMPUTACAO_0.39", "spend": 4.88, "imp": 329, "clk": 7, "lpv": 5, "lead": 1, "thru": 23, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1MLffihjzkyyRRDn1Rf4UC6TU4e7mKEnq/view"}, {"name": "ADV01_BNCP003_CAP_ATENCAO PROFESSORA BNCC ATUALIZACOES_0.42", "spend": 19.31, "imp": 1392, "clk": 21, "lpv": 14, "lead": 9, "thru": 132, "camps": ["[01]"], "drive": "https://drive.google.com/file/d/1OOPHa5wwL4N4aYMzGUngsDjLFajNsBtp/view"}], "mc": {"status": {"subscribed": 26873, "cleaned": 504, "unsubscribed": 131}, "daily": {"2026-10-08": 2, "2026-10-09": 14, "2026-10-10": 308, "2026-10-11": 428, "2026-10-12": 418, "2026-10-13": 341, "2026-10-14": 282, "2026-10-15": 541, "2026-10-16": 856, "2026-10-17": 863, "2026-10-18": 1458, "2026-10-19": 1440, "2026-10-20": 1145, "2026-10-21": 851, "2026-10-22": 1672, "2026-10-23": 1618, "2026-10-24": 1445, "2026-10-25": 1294, "2026-10-26": 1137, "2026-10-27": 1597, "2026-10-28": 1276, "2026-10-29": 1464, "2026-10-30": 1464, "2026-10-31": 1251, "2026-11-01": 1332, "2026-11-02": 1239, "2026-11-03": 786, "2026-11-04": 379, "2026-11-05": 167, "2026-11-06": 126, "2026-11-07": 152, "2026-11-08": 162}}, "camps": [{"id": "120252979387700222", "code": "[01]", "nome": "Teste de criativos", "sub": "Público frio · Interesse coordenadora · Página V1", "spend": 9689.45, "imp": 1094609, "reach": 476708, "clk_all": 40467, "clk": 21687, "lpv": 15626, "lead": 5570, "p3": 470380, "thru": 168324, "ini": "09/10"}, {"id": "120252979388570222", "code": "[02]", "nome": "Teste de página V1 × V2 × V3", "sub": "Público frio · Interesse coordenadora", "spend": 631.13, "imp": 41251, "reach": 33195, "clk_all": 1676, "clk": 880, "lpv": 627, "lead": 256, "p3": 19602, "thru": 6288, "ini": "09/10"}, {"id": "120253038962700222", "code": "[03]", "nome": "Lookalike de compradores", "sub": "Públicos semelhantes a compradores · Página V1", "spend": 11635.64, "imp": 1105690, "reach": 687896, "clk_all": 35162, "clk": 21197, "lpv": 16335, "lead": 5655, "p3": 556404, "thru": 185303, "ini": "15/10"}, {"id": "120253039021310222", "code": "[04]", "nome": "Remarketing", "sub": "Quem já assistiu aos vídeos ou visitou a página · Página V1", "spend": 11341.32, "imp": 1159278, "reach": 452888, "clk_all": 44801, "clk": 28803, "lpv": 23206, "lead": 10257, "p3": 503080, "thru": 177829, "ini": "15/10"}, {"id": "120253099058030222", "code": "[05]", "nome": "Teste de página V1 × V3", "sub": "Criativos campeões · LAL 0-1% + Interesse coordenadora", "spend": 6162.8, "imp": 461652, "reach": 353392, "clk_all": 16002, "clk": 9983, "lpv": 7855, "lead": 2793, "p3": 233299, "thru": 82512, "ini": "19/10"}, {"id": "120253253360900222", "code": "[06]", "nome": "Criativos novos (ADV46 a ADV49)", "sub": "Interesse coordenadora + LAL 1-2% · Página V3", "spend": 1799.89, "imp": 165074, "reach": 131691, "clk_all": 4086, "clk": 3140, "lpv": 2253, "lead": 644, "p3": 72013, "thru": 20088, "ini": "29/10"}], "followup_spend": 1076.79};
+const META_LEADS = 19662, VERBA = 41289.64, TAX = 1.1383, CPL_PLAN = 2.10;
+const ACT = '528479071959953';
+const fmtR = (v,d=2)=>'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtN = v=>Math.round(v).toLocaleString('pt-BR');
+const fmtP = (v,d=1)=>(v*100).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
+const $ = id=>document.getElementById(id);
+const sum = (a,k)=>a.reduce((s,x)=>s+(x[k]||0),0);
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dm = iso=>iso.slice(8,10)+'/'+iso.slice(5,7);
+
+// ---------- totals
+const C = D.camps;
+const T = {spend:sum(C,'spend'),imp:sum(C,'imp'),clk_all:sum(C,'clk_all'),clk:sum(C,'clk'),lpv:sum(C,'lpv'),lead:sum(C,'lead'),p3:sum(C,'p3'),thru:sum(C,'thru')};
+const MC = Object.values(D.mc.status).reduce((a,b)=>a+b,0), SUB = D.mc.status.subscribed||0;
+const cplReal = T.spend/MC;
+$('k-mc').textContent = fmtN(MC);
+$('k-meta').textContent = fmtN(META_LEADS);
+$('k-pct').textContent = fmtP(MC/META_LEADS,0)+' da meta';
+$('k-goal').style.width = '100%';
+$('t-mc-extra').textContent = fmtN(MC-META_LEADS);
+$('k-spend').textContent = fmtR(T.spend,0);
+$('k-verba').textContent = fmtR(VERBA,0);
+$('k-spend-tax').textContent = fmtR(T.spend*TAX,0);
+$('k-cpl').textContent = fmtR(cplReal);
+$('k-cpl-tag').textContent = fmtP(1-cplReal/CPL_PLAN,0)+' abaixo';
+$('k-cpl-tax').textContent = fmtR(cplReal*TAX);
+$('k-lead').textContent = fmtN(T.lead);
+$('k-cplm').textContent = fmtR(T.spend/T.lead);
+$('k-sub').textContent = fmtN(SUB);
+$('b-spend').textContent = fmtR(T.spend);
+$('b-saldo').textContent = fmtR(VERBA-T.spend);
+$('b-tax').textContent = fmtR(T.spend*TAX);
+$('b-lemb').textContent = fmtR(D.followup_spend)+' até agora';
+$('b-used').style.flex = T.spend; $('b-left').style.flex = Math.max(VERBA-T.spend, VERBA*0.004);
+
+// ---------- funnel
+const steps = [
+  {l:'Impressões',s:'vezes que os anúncios apareceram',v:T.imp},
+  {l:'Cliques no link',s:'foram para a página',v:T.clk,c:'CTR do link'},
+  {l:'Visualizações da página',s:'página carregou de fato',v:T.lpv,c:'Connect rate'},
+  {l:'Leads (Meta)',s:'cadastros atribuídos pelo pixel',v:T.lead,c:'Conversão da página'},
+  {l:'Cadastros reais',s:'contatos na lista do Mailchimp',v:MC,c:'em relação aos leads Meta'},
+];
+const maxLog = Math.log10(steps[0].v);
+$('funnel').innerHTML = steps.map((s,i)=>{
+  const w = i===0?100:Math.max(14, (Math.log10(s.v)/maxLog)*100);
+  const conv = i===0?'<b>'+fmtR(T.spend/T.imp*1000)+'</b>CPM':'<b>'+fmtP(s.v/steps[i-1].v)+'</b>'+s.c;
+  return `<div class="fstep"><div class="lbl">${s.l}<small>${s.s}</small></div>
+    <div class="fbar"><i style="width:${w}%"></i><b>${fmtN(s.v)}</b></div><div class="fconv">${conv}</div></div>`;
+}).join('');
+const M = [
+  ['CPM',fmtR(T.spend/T.imp*1000),'custo por mil impressões'],
+  ['CPC (link)',fmtR(T.spend/T.clk),'custo por clique no link'],
+  ['CTR (link)',fmtP(T.clk/T.imp,2),'cliques no link ÷ impressões'],
+  ['Custo por visita',fmtR(T.spend/T.lpv),'por visualização de página'],
+  ['Hook rate',fmtP(T.p3/T.imp),'assistiram 3s ÷ impressões'],
+  ['Retenção (ThruPlay)',fmtP(T.thru/T.imp),'assistiram 15s ou tudo ÷ impressões'],
+  ['Connect rate',fmtP(T.lpv/T.clk),'visitas ÷ cliques no link'],
+  ['Conversão da página',fmtP(T.lead/T.lpv),'leads ÷ visitas'],
+  ['CTR (todos)',fmtP(T.clk_all/T.imp,2),'qualquer clique ÷ impressões'],
+  ['Custo por lead Meta',fmtR(T.spend/T.lead),'investimento ÷ leads Meta'],
+  ['Custo por cadastro',fmtR(cplReal),'investimento ÷ Mailchimp'],
+  ['Cadastros ativos',fmtP(SUB/MC),'seguem inscritos na lista'],
+];
+$('metrics').innerHTML = M.map(m=>`<div class="mini"><small>${m[0]}</small><b>${m[1]}</b><span>${m[2]}</span></div>`).join('');
+
+// ---------- daily charts (single-series each, one axis each)
+Chart.defaults.font.family = 'Poppins, sans-serif';
+Chart.defaults.color = '#5B5566';
+const days = D.daily.map(d=>dm(d.date));
+const grid = {color:'#EFECF4',drawTicks:false};
+const tip = {backgroundColor:'#141018',padding:10,cornerRadius:8,titleFont:{weight:'600'},displayColors:false};
+function bar(id,data,fmt){
+  new Chart($(id),{type:'bar',data:{labels:days,datasets:[{data,backgroundColor:'#7C3AED',hoverBackgroundColor:'#5B21B6',borderRadius:{topLeft:4,topRight:4},borderSkipped:'bottom',maxBarThickness:18}]},
+    options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tip,callbacks:{label:c=>fmt(c.parsed.y)}}},
+      scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkipPadding:10,font:{size:10.5}}},y:{grid,border:{display:false},ticks:{font:{size:10.5},callback:v=>fmt(v)}}}}});
+}
+bar('c-spend',D.daily.map(d=>+d.spend.toFixed(2)),v=>'R$ '+Math.round(v).toLocaleString('pt-BR'));
+bar('c-mc',D.daily.map(d=>d.mc),v=>Math.round(v).toLocaleString('pt-BR'));
+const cplD = D.daily.map(d=>d.mc>=20?+(d.spend/d.mc).toFixed(2):null);
+new Chart($('c-cpl'),{type:'line',data:{labels:days,datasets:[
+  {data:cplD,borderColor:'#7C3AED',backgroundColor:'#7C3AED',borderWidth:2,pointRadius:3,pointHoverRadius:6,tension:.25,spanGaps:true},
+  {data:days.map(()=>CPL_PLAN),borderColor:'#B45309',borderWidth:1.5,borderDash:[5,5],pointRadius:0,pointHoverRadius:0}]},
+  options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{...tip,filter:i=>i.datasetIndex===0,callbacks:{label:c=>'Custo por cadastro: '+fmtR(c.parsed.y)}}},
+    scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkipPadding:10,font:{size:10.5}}},y:{grid,border:{display:false},min:0,ticks:{font:{size:10.5},callback:v=>'R$ '+v.toFixed(2).replace('.',',')}}}}});
+
+// daily table
+$('t-daily').innerHTML = '<thead><tr><th class="l">Dia</th><th>Investimento</th><th>Impressões</th><th>Cliques link</th><th>Visitas</th><th>Leads Meta</th><th>Cadastros reais</th><th>Custo/cadastro</th></tr></thead><tbody>'+
+  D.daily.map(d=>`<tr><td>${dm(d.date)}</td><td>${fmtR(d.spend)}</td><td>${fmtN(d.imp)}</td><td>${fmtN(d.clk)}</td><td>${fmtN(d.lpv)}</td><td>${fmtN(d.lead)}</td><td>${fmtN(d.mc)}</td><td>${d.mc?fmtR(d.spend/d.mc):'-'}</td></tr>`).join('')+
+  `</tbody><tfoot><tr><td>Total</td><td>${fmtR(sum(D.daily,'spend'))}</td><td>${fmtN(sum(D.daily,'imp'))}</td><td>${fmtN(sum(D.daily,'clk'))}</td><td>${fmtN(sum(D.daily,'lpv'))}</td><td>${fmtN(sum(D.daily,'lead'))}</td><td>${fmtN(MC)}</td><td>${fmtR(T.spend/MC)}</td></tr></tfoot>`;
+
+// ---------- generic sortable table
+function table(el, cols, rows, opts={}){
+  let sortKey = opts.sort, dir = -1;
+  function render(){
+    const r = [...rows].sort((a,b)=>{const x=cols.find(c=>c.k===sortKey); const va=x.v?x.v(a):a[sortKey], vb=x.v?x.v(b):b[sortKey];
+      if(va==null) return 1; if(vb==null) return -1; return (typeof va==='string'?va.localeCompare(vb):va-vb)*dir;});
+    const maxCpl = Math.max(...r.map(x=>x.lead?x.spend/x.lead:0).filter(v=>v<20));
+    el.innerHTML = '<thead><tr>'+cols.map(c=>`<th data-k="${c.k}" class="${c.l?'l':''} ${c.k===sortKey?'sorted':''}" title="Ordenar">${c.t}${c.k===sortKey?(dir<0?' ↓':' ↑'):''}</th>`).join('')+'</tr></thead><tbody>'+
+      r.map(x=>'<tr>'+cols.map(c=>`<td class="${c.cls||''}">${c.f(x,maxCpl)}</td>`).join('')+'</tr>').join('')+'</tbody>'+
+      (opts.foot?'<tfoot><tr>'+cols.map(c=>`<td class="${c.cls&&c.cls!=='name'?c.cls:''}">${c.foot?c.foot(r):''}</td>`).join('')+'</tr></tfoot>':'');
+    el.querySelectorAll('th').forEach(th=>th.onclick=()=>{const k=th.dataset.k; if(k===sortKey) dir=-dir; else {sortKey=k; dir=(cols.find(c=>c.k===k).asc)?1:-1;} render();});
+  }
+  render();
+  return {set(newRows){rows=newRows;render();}};
+}
+const cpl = x=>x.lead?x.spend/x.lead:null;
+const cplCell = (x,max)=>{const v=cpl(x); if(v==null) return '<span style="color:var(--muted)">sem lead</span>'; const w=Math.min(60,Math.round(v/max*60)); return `<span class="cplbar" style="width:${w}px"></span><b>${fmtR(v)}</b>`;};
+const totFoot = k=>r=>fmtN(sum(r,k));
+const metricCols = [
+  {k:'spend',t:'Investimento',f:x=>fmtR(x.spend),foot:r=>fmtR(sum(r,'spend'))},
+  {k:'lead',t:'Leads Meta',f:x=>'<b>'+fmtN(x.lead)+'</b>',foot:totFoot('lead')},
+  {k:'cpl',t:'Custo/lead',v:cpl,asc:true,f:cplCell,foot:r=>fmtR(sum(r,'spend')/sum(r,'lead'))},
+  {k:'imp',t:'Impressões',f:x=>fmtN(x.imp),foot:totFoot('imp')},
+  {k:'ctr',t:'CTR link',v:x=>x.imp?x.clk/x.imp:0,f:x=>x.imp?fmtP(x.clk/x.imp,2):'-',foot:r=>fmtP(sum(r,'clk')/sum(r,'imp'),2)},
+  {k:'cpc',t:'CPC link',v:x=>x.clk?x.spend/x.clk:null,asc:true,f:x=>x.clk?fmtR(x.spend/x.clk):'-',foot:r=>fmtR(sum(r,'spend')/sum(r,'clk'))},
+  {k:'lpv',t:'Visitas',f:x=>fmtN(x.lpv),foot:totFoot('lpv')},
+  {k:'conn',t:'Connect',v:x=>x.clk?x.lpv/x.clk:0,f:x=>x.clk?fmtP(x.lpv/x.clk,0):'-',foot:r=>fmtP(sum(r,'lpv')/sum(r,'clk'),0)},
+  {k:'conv',t:'Conv. página',v:x=>x.lpv?x.lead/x.lpv:0,f:x=>x.lpv?fmtP(x.lead/x.lpv,1):'-',foot:r=>fmtP(sum(r,'lead')/sum(r,'lpv'),1)},
+];
+
+// campaigns
+table($('t-camp'),[
+  {k:'code',t:'Campanha',l:1,cls:'name',asc:true,f:x=>`<span class="code">${x.code}</span>${esc(x.nome)}<small>${esc(x.sub)} · início ${x.ini}</small>`,foot:()=>'Total captação'},
+  ...metricCols.slice(0,3),
+  {k:'share',t:'% leads',v:x=>x.lead,f:x=>fmtP(x.lead/T.lead,0),foot:()=>'100%'},
+  ...metricCols.slice(3),
+  {k:'hook',t:'Hook rate',v:x=>x.p3/x.imp,f:x=>fmtP(x.p3/x.imp,0),foot:r=>fmtP(sum(r,'p3')/sum(r,'imp'),0)},
+], C.map(c=>({...c})), {sort:'lead',foot:true});
+
+const CAMP_TXT = {
+ '[01]':'Primeira campanha, no ar desde o dia 1. Testou 40 criativos em 8 conjuntos (5 vídeos por conjunto) no público de coordenadoras pedagógicas, para descobrir quais vídeos convertem melhor. Daqui saíram os campeões ADV30, ADV06, ADV32 e ADV14.',
+ '[02]':'Teste de página: 3 conjuntos idênticos (mesmo público e mesmos 5 criativos), mudando só a página de destino (V1, V2 e V3). Rodou com verba pequena só para a leitura.',
+ '[03]':'Escala com os criativos campeões em públicos semelhantes aos compradores dos cursos BNCC (lookalike), em 4 faixas sem sobreposição: 0-1%, 1-2%, 2-3% e 3-5%.',
+ '[04]':'Remarketing: impacta quem já assistiu 25% de algum vídeo da Voa ou visitou a página de captação e ainda não se cadastrou. Foi a campanha mais barata e a que mais trouxe leads, e a única mantida até o encerramento.',
+ '[05]':'Segundo teste de página, agora V1 × V3, com os criativos campeões, no lookalike 0-1% e no público de coordenadoras, para confirmar a leitura do teste [02] com mais volume.',
+ '[06]':'Teste dos 4 criativos novos de 29/10 (ADV46 a ADV49, variações do ADV30) em interesse coordenadora e lookalike 1-2%, página V3. Só o ADV48 ganhou entrega e ficou mais caro que os campeões, por isso a campanha foi pausada em 02/11.',
+};
+$('camp-desc').innerHTML = C.map(c=>`<div class="card"><h3><span class="code">${c.code}</span>${esc(c.nome)}</h3><p style="font-size:13.5px;color:var(--cinza);margin:6px 0 0">${CAMP_TXT[c.code]}</p></div>`).join('');
+
+// ---------- audiences
+const AS = D.adsets.map(a=>{
+  const n=a.name; let tipo='int';
+  if(/RMK/.test(n)) tipo='rmk'; else if(/LAL/.test(n)) tipo='lal';
+  const pg=(n.match(/PAGINA V\d/)||[''])[0].replace('PAGINA ','Página ');
+  return {...a, tipo, pg, short:n.split('|').slice(0,2).map(s=>s.trim()).join(' · ')};
+});
+const grp = t=>AS.filter(a=>a.tipo===t);
+const agg = arr=>({spend:sum(arr,'spend'),lead:sum(arr,'lead'),lpv:sum(arr,'lpv'),clk:sum(arr,'clk'),imp:sum(arr,'imp')});
+const AUD = [
+  {t:'int',nome:'Interesse: coordenadora pedagógica',tag:'Público frio',
+   o:'Mulheres que trabalham ou se identificam como coordenadoras pedagógicas, a principal persona do curso.',
+   d:[['Segmentação','Cargo: Coordenador(a) Pedagógico(a) e Professor/Coordenador Pedagógico'],['Expansão','Público Advantage+ ligado: a Meta pode ir além do interesse quando acha pessoas com mais chance de se cadastrar'],['Perfil','Mulheres, 35 a 64 anos, Brasil'],['Exclusões','Quem já conhece a Voa (engajou no Instagram, seguidores, compradores, leads e visitantes do lançamento anterior)'],['Onde rodou','Campanhas [01], [02], [05] e [06]']]},
+  {t:'lal',nome:'Lookalike de compradores',tag:'Público frio',
+   o:'Pessoas parecidas com quem já comprou os cursos BNCC da Voa. A Meta usa a lista de compradores como "semente" e encontra perfis semelhantes no Brasil.',
+   d:[['Segmentação','Lookalike da lista geral de compradores BNCC, em faixas: 0-1% (mais parecido), 1-2%, 2-3% e 3-5%'],['Sem sobreposição','Cada faixa exclui a anterior (ex.: a 1-2% exclui quem está na 0-1%)'],['Perfil','Mulheres, 35 a 64 anos, Brasil · sem expansão automática'],['Exclusões','As mesmas do público de interesse + compradores + quem já viu 25% dos vídeos BNCP003'],['Onde rodou','Campanhas [03], [05] e [06]']]},
+  {t:'rmk',sub:'01',nome:'Remarketing 01: quente do BNCP003',tag:'Público quente',
+   o:'Quem já teve contato com esta captação e ainda não se cadastrou.',
+   d:[['Inclui','Quem assistiu 25% ou mais de qualquer vídeo da captação BNCP003 + quem visitou as páginas de captação (V1, V2, V3) nos últimos 60 dias'],['Perfil','Homens e mulheres, 25 a 65 anos'],['Exclusões','Compradores e quem passou pela página de obrigado nos últimos 45 dias'],['Onde rodou','Campanha [04]']]},
+  {t:'rmk',sub:'02',nome:'Remarketing 02: quente dos lançamentos anteriores',tag:'Público quente',
+   o:'Quem assistiu aos vídeos de captação dos lançamentos anteriores da Voa e ainda não entrou neste.',
+   d:[['Inclui','Quem assistiu 25% ou mais dos vídeos de captação do BNCC016, BNCC017, BNCP001 e BNCC019 (últimos 365 dias)'],['Perfil','Homens e mulheres, 25 a 65 anos'],['Exclusões','Compradores, quem passou pela página de obrigado e quem já está no Remarketing 01 (para não pagar duas vezes pela mesma pessoa)'],['Onde rodou','Campanha [04]']]},
+];
+$('aud').innerHTML = AUD.map(a=>{
+  const arr = a.sub?grp('rmk').filter(x=>x.name.startsWith(a.sub)):grp(a.t);
+  const g=agg(arr);
+  return `<div class="card"><h3>${a.nome} <span class="tag ${a.t==='rmk'?'ok':'neu'}">${a.tag}</span></h3>
+    <p style="font-size:13.5px;color:var(--cinza);margin:4px 0 0">${a.o}</p>
+    <dl>${a.d.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl>
+    <div class="res"><div><b>${fmtR(g.spend,0)}</b>investido</div><div><b>${fmtN(g.lead)}</b>leads</div><div><b>${fmtR(g.spend/g.lead)}</b>custo/lead</div><div><b>${fmtP(g.lead/g.lpv,0)}</b>conv. página</div><div><b>${arr.length}</b>conjunto${arr.length>1?'s':''}</div></div></div>`;
+}).join('');
+$('aud').insertAdjacentHTML('beforeend',`<div class="card" style="grid-column:1/-1"><h3>Especificações comuns a todos os conjuntos</h3>
+  <dl style="grid-template-columns:160px 1fr"><dt>Objetivo</dt><dd>Cadastros (Leads), otimizando para o evento Lead do pixel no envio do formulário</dd>
+  <dt>Orçamento</dt><dd>Por conjunto (ABO), para controlar a verba de cada público e de cada teste</dd>
+  <dt>Posicionamentos</dt><dd>Advantage+ (Facebook, Instagram, Threads, Audience Network e, nos conjuntos mais novos, WhatsApp)</dd>
+  <dt>Localização</dt><dd>Brasil (moradores e pessoas que estiveram recentemente no país)</dd>
+  <dt>Rastreamento</dt><dd>Parâmetros UTM em todos os anúncios (campanha, conjunto e anúncio) para cruzar com a lista</dd></dl></div>`);
+
+const TIPO = {int:'Interesse',lal:'Lookalike',rmk:'Remarketing'};
+const adsetCols = [
+  {k:'camp',t:'Campanha · Conjunto',l:1,cls:'name',asc:true,v:x=>x.camp+x.name,f:x=>`<span class="code">${x.camp}</span>${esc(x.short)}<small>${TIPO[x.tipo]} · ${x.pg} · criativos: ${esc((x.name.split('|').pop()||'').trim())}</small>`,foot:()=>'Total'},
+  ...metricCols];
+const tAdset = table($('t-adset'),adsetCols,AS,{sort:'lead',foot:true});
+function chips(el, opts, on){ el.innerHTML = opts.map((o,i)=>`<button class="chip ${i===0?'on':''}" data-v="${o[0]}">${o[1]}</button>`).join(''); el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{el.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');on(b.dataset.v);}); }
+chips($('f-adset'),[['all','Todos'],['int','Interesse'],['lal','Lookalike'],['rmk','Remarketing']],v=>tAdset.set(v==='all'?AS:AS.filter(a=>a.tipo===v)));
+
+// ---------- ads
+const ADS = D.ads.map(a=>({...a, short:(a.adset_name.split('|').slice(0,2).map(s=>s.trim()).join(' · '))}));
+const crName = n=>{const p=n.split('_'); return {code:p[0], title:p.slice(3,-1).join(' ').replace(/^RT /,''), dur:(p[p.length-1]||'').replace('.',':')};};
+const adCols = [
+  {k:'name',t:'Anúncio',l:1,cls:'name',asc:true,f:x=>{const c=crName(x.name);return `<span class="code">${c.code}</span>${esc(c.title)}<small>${x.camp} · ${esc(x.short)}</small>`;},foot:()=>'Total'},
+  ...metricCols.slice(0,3),
+  {k:'thr',t:'Retenção',v:x=>x.imp?x.thru/x.imp:0,f:x=>x.imp?fmtP(x.thru/x.imp,0):'-',foot:r=>fmtP(sum(r,'thru')/sum(r,'imp'),0)},
+  ...metricCols.slice(4,5), ...metricCols.slice(8),
+  {k:'link',t:'Anúncio',v:x=>0,f:x=>`<a class="lnk" target="_blank" rel="noopener" href="https://adsmanager.facebook.com/adsmanager/manage/ads?act=${ACT}&selected_ad_ids=${x.id}">Abrir ↗</a>`},
+];
+let adFilter='all', adQ='';
+const tAd = table($('t-ad'),adCols,ADS,{sort:'lead',foot:true});
+function refreshAds(){const r=ADS.filter(a=>(adFilter==='all'||a.camp===adFilter)&&(!adQ||a.name.toLowerCase().includes(adQ)||a.adset_name.toLowerCase().includes(adQ))); tAd.set(r); $('ad-count').textContent=r.length+' anúncios';}
+chips($('f-ad'),[['all','Todas'],...C.map(c=>[c.code,c.code+' '+c.nome.split(' (')[0]])],v=>{adFilter=v;refreshAds();});
+$('f-ad').insertAdjacentHTML('beforeend','<input class="search" id="q-ad" placeholder="Buscar ADV, tema ou conjunto" aria-label="Buscar anúncio">');
+$('q-ad').oninput=e=>{adQ=e.target.value.toLowerCase().trim();refreshAds();};
+refreshAds();
+
+// ---------- creatives
+const CR = D.creatives.map(c=>({...c,...crName(c.name)}));
+const topCr = [...CR].sort((a,b)=>b.lead-a.lead).slice(0,4);
+$('top-cr').innerHTML = topCr.map((c,i)=>`<div class="kpi ${i===0?'hl':''}"><small>#${i+1} · ${c.code}</small><div class="v">${fmtN(c.lead)}</div>
+  <div class="s"><b>${esc(c.title)}</b><br>${fmtR(c.spend/c.lead)} por lead · ${fmtP(c.lead/T.lead,0)} dos leads</div>
+  <div style="margin-top:10px"><a class="lnk" style="${i===0?'color:#fff;border-color:rgba(255,255,255,.6)':''}" target="_blank" rel="noopener" href="${c.drive}">Ver no Drive ↗</a></div></div>`).join('');
+const crCols = [
+  {k:'code',t:'Criativo',l:1,cls:'name',asc:true,f:x=>`<span class="code">${x.code}</span>${esc(x.title)}<small>Duração ${x.dur} · campanhas ${x.camps.join(' ')}</small>`,foot:()=>'Total'},
+  ...metricCols.slice(0,3),
+  {k:'share',t:'% leads',v:x=>x.lead,f:x=>fmtP(x.lead/T.lead,1),foot:()=>'100%'},
+  {k:'thr',t:'Retenção',v:x=>x.imp?x.thru/x.imp:0,f:x=>x.imp?fmtP(x.thru/x.imp,0):'-',foot:r=>fmtP(sum(r,'thru')/sum(r,'imp'),0)},
+  ...metricCols.slice(3,5), ...metricCols.slice(8),
+  {k:'drive',t:'Vídeo',v:x=>0,f:x=>x.drive?`<a class="lnk" target="_blank" rel="noopener" href="${x.drive}">Drive ↗</a>`:'-'},
+];
+let crFilter='all';
+const tCr = table($('t-cr'),crCols,CR,{sort:'lead',foot:true});
+function refreshCr(){const r=CR.filter(c=>crFilter==='all'||(crFilter==='lead'&&c.lead>=50)||(crFilter==='new'&&/ADV4[6-9]/.test(c.code))||(crFilter==='rt'&&/_RT_/.test(c.name))); tCr.set(r); $('cr-count').textContent=r.length+' criativos';}
+chips($('f-cr'),[['all','Todos'],['lead','Com 50+ leads'],['rt','Reutilizados (RT)'],['new','Novos de 29/10']],v=>{crFilter=v;refreshCr();});
+refreshCr();
+
+// ---------- insights & tests
+const camp = code=>C.find(c=>c.code===code);
+const rmk=camp('[04]'), cr30=CR.find(c=>c.code==='ADV30');
+const INS = [
+  ['01','Remarketing foi o motor',`A campanha [04] trouxe <b>${fmtP(rmk.lead/T.lead,0)}</b> dos leads com o menor custo (<b>${fmtR(rmk.spend/rmk.lead)}</b>). O Remarketing 01 (quem viu os vídeos desta captação) teve o menor custo e o Remarketing 02 (vídeos dos lançamentos anteriores) trouxe o maior volume. Vale manter essa base de vídeo-visualização sempre aquecida entre um lançamento e outro.`],
+  ['02','Um criativo carregou o lançamento',`O <b>ADV30 (Coordenador falou BNCC Computação)</b> gerou <b>${fmtN(cr30.lead)}</b> leads, ${fmtP(cr30.lead/T.lead,0)} do total, a ${fmtR(cr30.spend/cr30.lead)}. Os 4 maiores (ADV30, ADV32, ADV06, ADV14) somam quase 90% dos leads. Formato vencedor: situação real de escola com fala direta, entre 0:55 e 1:30.`],
+  ['03','Coordenadora é a persona certa',`O público de interesse em coordenação pedagógica teve custo por lead de <b>${fmtR(agg(grp('int')).spend/agg(grp('int')).lead)}</b>, contra <b>${fmtR(agg(grp('lal')).spend/agg(grp('lal')).lead)}</b> do lookalike, que ficou mais caro com o tempo. No lookalike, a faixa 1-2% foi a que pagou melhor.`],
+  ['04','Rastreamento corrigido no meio do caminho','Em 28/10 o evento de cadastro passou a disparar no envio do formulário (antes dependia da página de obrigado). A partir daí a Meta passou a enxergar praticamente 100% dos cadastros, o que melhora a otimização das campanhas nos próximos lançamentos.'],
+  ['05','Criativos novos precisam de mais tempo','As variações do ADV30 (ADV46 a ADV49) entraram na reta final e não superaram o original: só o ADV48 ganhou entrega, a R$ 2,76. Para o próximo lançamento, testar criativos novos já na 1ª semana, quando o custo de aprendizado é menor.'],
+  ['06','Próximos passos','Usar a base de 27,5 mil cadastros para as aulas de 09 a 13/11 (lembrete e campanhas das aulas já no ar). Para o próximo lançamento: começar com o remarketing desde o dia 1, renovar criativos a partir do modelo ADV30 e levar a página V3 para o público de coordenadoras.'],
+];
+$('ins').innerHTML = INS.map(i=>`<div class="card"><div class="n">${i[0]}</div><h3>${i[1]}</h3><p>${i[2]}</p></div>`).join('');
+function vsBox(title, desc, arr){
+  const best = Math.min(...arr.map(a=>a.spend/a.lead));
+  return `<div class="card"><h3>${title}</h3><p style="font-size:13px;color:var(--cinza);margin:2px 0 0">${desc}</p><div class="vs">${arr.map(a=>`<div class="${a.spend/a.lead===best?'win':''}"><small>${a.pg}</small><b>${fmtR(a.spend/a.lead)}</b><span>${fmtN(a.lead)} leads · conv. ${fmtP(a.lead/a.lpv,0)}</span></div>`).join('')}</div></div>`;
+}
+const t2 = AS.filter(a=>a.camp==='[02]').sort((a,b)=>a.pg.localeCompare(b.pg));
+const t5 = AS.filter(a=>a.camp==='[05]'&&a.tipo==='int').sort((a,b)=>a.pg.localeCompare(b.pg));
+$('tests').innerHTML = vsBox('Teste de página [02]: V1 × V2 × V3','Mesmo público (coordenadoras) e mesmos criativos. Custo por lead de cada página:',t2)+
+  vsBox('Teste de página [05]: V1 × V3','Criativos campeões no público de coordenadoras, com mais verba:',t5)+
+  `<p class="note" style="grid-column:1/-1;margin-top:0">Leitura dos testes: a <b>V2 ficou atrás</b>. No teste [02], V1 e V3 empataram no custo por lead. No teste [05], com mais verba, a <b>V3 teve leve vantagem</b> (custo e conversão da página um pouco melhores), mas a diferença é pequena. Recomendação: usar a V3 como base no próximo lançamento e seguir testando contra uma nova variação.</p>`;
+
+// nav highlight
+const links=[...document.querySelectorAll('nav.sec a')];
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id));}}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>
